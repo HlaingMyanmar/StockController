@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="514.0" prefWidth="1129.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.controllers.SupplierController">
+   <children>
+      <TableView fx:id="suppliertable" layoutX="11.0" layoutY="131.0" prefHeight="356.0" prefWidth="725.0">
+        <columns>
+          <TableColumn fx:id="codeCol" prefWidth="62.0" text="Code" />
+          <TableColumn fx:id="nameCol" prefWidth="185.0" text="Name" />
+            <TableColumn fx:id="phoneCol" prefWidth="128.0" text="Phone" />
+            <TableColumn fx:id="addressCol" prefWidth="228.0" text="Address" />
+            <TableColumn fx:id="remarkCol" prefWidth="120.0" text="Remark" />
+        </columns>
+      </TableView>
+      <VBox layoutX="741.0" layoutY="7.0" prefHeight="506.0" prefWidth="374.0">
+         <children>
+            <TextField fx:id="code" editable="false" prefHeight="40.0" prefWidth="393.0">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="20.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="name" prefHeight="40.0" prefWidth="393.0" promptText="Name">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="20.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="phone" layoutX="30.0" layoutY="110.0" prefHeight="40.0" prefWidth="393.0" promptText="Phone No...">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="20.0" />
+               </VBox.margin>
+            </TextField>
+            <TextArea fx:id="address" prefHeight="165.0" prefWidth="373.0" promptText="Address">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="20.0" />
+               </VBox.margin>
+            </TextArea>
+            <TextField fx:id="remarktxt" layoutX="40.0" layoutY="190.0" prefHeight="40.0" prefWidth="393.0" promptText="Remark">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="20.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+         </padding>
+      </VBox>
+      <Button fx:id="savebtn" layoutX="574.0" layoutY="43.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="162.0" style="-fx-background-color: #4E4E4E;" text="Save" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Pane layoutX="14.0" layoutY="20.0" prefHeight="71.0" prefWidth="343.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #484848; -fx-background-radius: 10; -fx-border-radius: 10;">
+         <children>
+            <Label fx:id="sizetxt" layoutX="2.0" layoutY="5.0" prefHeight="62.0" prefWidth="343.0" style="-fx-alignment: center;" text="Label" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Button fx:id="exportpdfbtn" layoutX="391.0" layoutY="43.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="162.0" style="-fx-background-color: #4E4E4E;" text="Export PDF" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
