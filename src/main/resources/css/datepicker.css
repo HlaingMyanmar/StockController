@@ -1,0 +1,82 @@
+/* styles.css */
+
+/* General styling for the DatePicker */
+.date-picker {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dddddd;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 1);
+}
+
+/* Text field within the DatePicker */
+.date-picker .text-field {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #333333;
+    -fx-border-color: #dddddd;
+    -fx-border-radius: 8px;
+    -fx-padding: 5px;
+}
+
+/* Focused state for the text field */
+.date-picker .text-field:focused {
+    -fx-border-color: #5dade2;
+}
+
+/* Arrow button for opening the calendar */
+.date-picker .arrow-button {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dddddd;
+    -fx-border-radius: 8px;
+}
+
+/* Hover state for the arrow button */
+.date-picker .arrow-button:hover {
+    -fx-background-color: #f2f2f2;
+}
+
+/* Popup calendar */
+.date-picker-popup {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dddddd;
+    -fx-border-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 1);
+}
+
+/* Buttons within the popup calendar */
+.date-picker-popup .button {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #333333;
+    -fx-border-color: #dddddd;
+    -fx-border-radius: 8px;
+}
+
+/* Hover state for buttons within the popup */
+.date-picker-popup .button:hover {
+    -fx-background-color: #f2f2f2;
+}
+
+/* Day cells within the popup calendar */
+.date-picker-popup .day-cell {
+    -fx-text-fill: #333333;
+    -fx-border-color: #dddddd;
+}
+
+/* Hover state for day cells */
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: #eaf2f8;
+    -fx-text-fill: #333333;
+}
+
+/* Selected state for day cells */
+.date-picker-popup .day-cell:selected {
+    -fx-background-color: #5dade2;
+    -fx-text-fill: #ffffff;
+}
+
+/* Today cell styling */
+.date-picker-popup .day-cell:today {
+    -fx-background-color: #aed6f1;
+    -fx-text-fill: #333333;
+}

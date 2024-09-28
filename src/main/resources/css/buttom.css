@@ -1,0 +1,17 @@
+
+
+.btn{
+
+    -fx-background-color:#0078D7;
+    -fx-font-size:12px;
+    -fx-text-fill:white;
+    -fx-font-weight: bold;
+
+}
+.btn:hover{
+
+    -fx-background-color:#FF2D2D;
+
+
+
+}

@@ -1,0 +1,19 @@
+.btn{
+
+
+
+
+}
+
+.btn:hover{
+
+    -fx-background-color:#424242;
+     -fx-font-size:15px;
+     -fx-text-fill:white;
+      -fx-alignment: center;
+     -fx-font-weight: bold;
+
+
+
+
+}

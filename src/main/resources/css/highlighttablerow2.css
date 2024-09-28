@@ -1,0 +1,26 @@
+.btn{
+
+    -fx-background-color: #007ACC;
+    -fx-font-size:13px;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+     -fx-alignment: center;
+      -fx-background-radius: 15;
+         -fx-padding: 10 20;
+
+
+}
+
+.btn:hover{
+
+    -fx-background-color:#424242;
+     -fx-font-size:20px;
+     -fx-text-fill:white;
+      -fx-alignment: center;
+     -fx-font-weight: bold;
+      -fx-background-radius: 15;
+         -fx-padding: 10 20;
+
+
+
+}

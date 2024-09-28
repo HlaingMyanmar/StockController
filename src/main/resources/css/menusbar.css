@@ -1,0 +1,43 @@
+/* styles.css */
+.menu-bar {
+    -fx-background-color: #512DA8;
+    -fx-padding: 5px;
+    -fx-text-fill: #4527A0;
+    -fx-background-radius:10px;
+
+}
+.menu-bar .menu-item {
+
+    -fx-font-size: 12px;
+    -fx-background-radius:10px;
+    -fx-background-color: transparent;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 5px;
+    -fx-border-color: transparent;
+}
+
+.menu-bar .menu {
+    -fx-background-color: white;
+    -fx-background-radius:10px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.menu-bar .menu:hover {
+    -fx-background-color: #555;
+}
+
+.menu-bar .menu-item:hover {
+    -fx-background-color: #777;
+    -fx-text-fill: white;
+}
+
+.menu-bar .menu-item:focused {
+    -fx-background-color: #999;
+    -fx-text-fill: white;
+}
+.menu-bar .menu-item:pressed {
+    -fx-background-color: #1abc9c;
+    -fx-text-fill: white;
+    -fx-border-color: #1abc9c;
+}

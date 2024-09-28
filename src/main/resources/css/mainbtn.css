@@ -1,0 +1,19 @@
+
+
+.btn{
+
+    -fx-background-color:#EED47F;
+    -fx-font-size:25px;
+    -fx-text-fill:red;
+    -fx-font-weight: bold;
+    -fx-background-radius:10px;
+
+
+}
+.btn:hover{
+
+    -fx-background-color:#A0CD4F;
+
+
+
+}
