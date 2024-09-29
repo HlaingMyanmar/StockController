@@ -1,5 +1,8 @@
 package org.models;
 
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
+
 public class Stock {
 
     private String stockcode;
@@ -48,7 +51,28 @@ public class Stock {
 
     }
 
+    public Stock(AtomicReference<String> stockcode,int qty){
 
+
+        this.stockcode = String.valueOf(stockcode);
+        this.qty = qty;
+
+    }
+
+    public Stock(AtomicReference<String> stockcode,int  price,int total){
+
+
+        this.stockcode = String.valueOf(stockcode);
+        this.price = price;
+        this.total = total;
+
+    }
+
+
+    public Stock(String stockcode, int price) {
+        this.stockcode = stockcode;
+        this.price = price;
+    }
 
     public String getStockcode() {
         return stockcode;

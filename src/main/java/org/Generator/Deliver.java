@@ -50,6 +50,17 @@ public class Deliver implements Generatorass{
 
     }
 
+    protected String getStockCode(String stockname){
+
+
+        return stockdb.getAllList().stream()
+                .filter(stock -> stock.getStockname().equals(stockname))
+                .map(Stock::getStockcode)
+                .findFirst()
+                .orElse(null);
+
+    }
+
     protected String getBrandCode(String brandname){
 
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
@@ -82,9 +83,10 @@ public class Stockdb implements DataAccessObject<Stock> {
 
 
     }
+    @Transactional
     public int sumQty(Stock stock){
 
-        String sql = "UPDATE stock SET qty = qty + :qty ,price =:price WHERE stockcode = :stockcode";
+        String sql = "UPDATE stock SET qty = qty + :qty  WHERE stockcode = :stockcode";
 
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(stock);
 
@@ -92,11 +94,25 @@ public class Stockdb implements DataAccessObject<Stock> {
 
     }
 
+    @Transactional
     public int subQty(Stock stock){
 
-        String sql = "UPDATE stock SET qty = qty - :qty  WHERE stockcode = :stockcode";
+        String sql = "UPDATE stock SET price = :price  WHERE stockcode = :stockcode";
 
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(stock);
+
+        return jdbc.update(sql,param );
+
+    }
+
+
+    @Transactional
+    public int setPrice(Stock stock){
+
+        String sql = "UPDATE stock SET price = :price  WHERE stockcode = :stockcode";
+
+        BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(stock);
+        System.out.println(stock.getPrice()+"\n"+stock.getStockcode());
 
         return jdbc.update(sql,param );
 

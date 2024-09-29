@@ -8,6 +8,7 @@ import org.models.PurchasehasStock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.*;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -29,7 +30,14 @@ public class PurchasehasStockdb implements DataAccessObject<PurchasehasStock> {
     @Override
     public List<PurchasehasStock> getAllList() {
 
-       return null;
+        String sql = """
+                
+      SELECT `puid`, `stockcode`, `qty`, `org_price` FROM `purchase_has_stock` WHERE 1
+                
+                
+                """;
+
+        return jdbc.query(sql, (rs, _) ->getPurchasstock(rs));
     }
 
     public List<PurchaseList>  getPurchaseDashboardList(){
@@ -94,7 +102,12 @@ public class PurchasehasStockdb implements DataAccessObject<PurchasehasStock> {
 
     @Override
     public int update(PurchasehasStock purchasehasStock) {
-        return 0;
+
+        String sql = "UPDATE `purchase_has_stock` SET `qty`=:qty,`org_price`=:org_price WHERE `stockcode`=:stockcode AND `puid` =:puid";
+
+        BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(purchasehasStock);
+
+        return jdbc.update(sql,param );
     }
 
     @Override
@@ -102,6 +115,7 @@ public class PurchasehasStockdb implements DataAccessObject<PurchasehasStock> {
         return new int[0];
     }
 
+    @Transactional
     @Override
     public int[] insertBatch(List<PurchasehasStock> t) {
 
@@ -137,6 +151,19 @@ public class PurchasehasStockdb implements DataAccessObject<PurchasehasStock> {
 
 
         return  stockList;
+
+    }
+
+    public PurchasehasStock getPurchasstock(ResultSet rs) throws SQLException {
+
+        PurchasehasStock purchasehasStock = new PurchasehasStock();
+
+        purchasehasStock.setPuid(rs.getString("puid"));
+        purchasehasStock.setStockcode(rs.getString("stockcode"));
+        purchasehasStock.setQty(rs.getInt("qty"));
+        purchasehasStock.setOrg_price(rs.getInt("org_price"));
+
+    return purchasehasStock;
 
     }
 

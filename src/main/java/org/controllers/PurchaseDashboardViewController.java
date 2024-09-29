@@ -16,18 +16,26 @@ import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.*;
+import javafx.stage.Popup;
 import javafx.util.Callback;
+import javafx.util.converter.IntegerStringConverter;
 import org.Alerts.AlertBox;
+import org.Generator.Deliver;
 import org.databases.PurchasehasStockdb;
+import org.databases.Stockdb;
 import org.models.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.*;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -36,11 +44,13 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 import static org.Generator.Currency.convertToMyanmarCurrency;
 
-public class PurchaseDashboardViewController implements Initializable {
+public class PurchaseDashboardViewController extends Deliver implements Initializable {
 
     @FXML
     private Spinner<Integer> dayPicker;
@@ -89,6 +99,10 @@ public class PurchaseDashboardViewController implements Initializable {
     ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 
     PurchasehasStockdb phsdb = context.getBean("purchasehastockdb", PurchasehasStockdb.class);
+
+    Stockdb stockdb = context.getBean("stockdb", Stockdb.class);
+
+    PurchasehasStockdb purchasehasStockdb = context.getBean("purchasehastockdb",PurchasehasStockdb.class);
 
 
     @Override
@@ -394,6 +408,169 @@ public class PurchaseDashboardViewController implements Initializable {
                     popup.setAutoHide(true);
                     popup.show(getScene().getWindow());
 
+
+                    AtomicReference<String> stockcode = new AtomicReference<>();
+                    AtomicInteger qty = new AtomicInteger();
+                    AtomicInteger price = new AtomicInteger();
+                    AtomicInteger total = new AtomicInteger();
+
+
+                    purchaseTableView.setOnMouseClicked(event1 -> {
+
+
+
+
+                        if(event1.getClickCount()==2){
+
+
+                            PurchaseStockList selectedItem= purchaseTableView.getSelectionModel().getSelectedItem();
+
+                            if(selectedItem!=null){
+
+                                stockcode.set(getStockCode(selectedItem.getStockname()));
+                                qty.set(selectedItem.getQty());
+                                price.set(selectedItem.getPrice());
+                                total.set(selectedItem.getTotal());
+
+
+                            }
+
+
+                        }
+
+
+
+                    });
+
+                    purchaseTableView.setEditable(true);
+
+                    pqtyCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+
+                    pqtyCol.setOnEditCommit(event1 -> {
+
+                        try {
+
+                            int netvalue = 0;
+
+                            int newvalue = event1.getNewValue();
+                            int oldvalue = event1.getOldValue();
+
+                            int result = purchasehasStockdb.update(new PurchasehasStock(
+
+                                    purchaseList.getPuid(),
+                                    stockcode.get(),
+                                    newvalue,
+                                    stockdb.getAllList().stream().filter(stock -> stock.getStockcode().equals(stockcode.get())).map(Stock::getPrice).findFirst().orElse(null)
+
+                            ));
+
+
+
+
+                            if (oldvalue > newvalue) {
+
+                                netvalue = oldvalue - newvalue;
+
+
+                                if (stockdb.subQty(new Stock(stockcode, netvalue)) == 1 && result==1) {
+
+                                    AlertBox.showInformation("အောင်မြင်ပါသည်", "ပြန်လည်ပြုပြခြင်း အောင်မြင်ပါသည်။");
+
+                                }
+
+                            } else if (oldvalue < newvalue) {
+
+
+                                netvalue = newvalue - oldvalue;
+
+
+                                if (stockdb.sumQty(new Stock(stockcode, netvalue)) == 1 && result==1) {
+
+                                    AlertBox.showInformation("အောင်မြင်ပါသည်", "ပြန်လည်ပြုပြခြင်း အောင်မြင်ပါသည်။");
+
+                                }
+
+                            }
+                        }catch (NumberFormatException e){
+
+                            AlertBox.showWarning("သတိပြုပါ။", "Number မဟုတ်သည့်အရာများ ထည့်သွင်း၍မရပါ။");
+
+                        }
+
+                    });
+
+
+                    ppriceCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+                    ppriceCol.setOnEditCommit(event2 -> {
+
+
+
+                        try {
+
+
+
+                        int newvalue = event2.getNewValue();
+
+                            int result = purchasehasStockdb.update(new PurchasehasStock(
+
+                                    purchaseList.getPuid(),
+                                    stockcode.get(),
+                                    purchasehasStockdb.getAllList().stream().filter(stock -> stock.getStockcode().equals(stockcode.get())).map(PurchasehasStock::getQty).findFirst().orElse(null),
+                                    newvalue
+
+
+                            ));
+
+                            if(result==1){
+
+                                AlertBox.showInformation("အောင်မြင်ပါသည်", "ပြန်လည်ပြုပြခြင်း အောင်မြင်ပါသည်။");
+
+                                int b = JOptionPane.showConfirmDialog(null,"၎င်း‌ဈေးနှုန်းသည် ရောင်း‌ဈေးအဖြစ်သတ်မှတ်မည်လား ....."+"\nသတ်မှတ်မည်ဆိုပါက 'Yes' ကိုနှိပ်ပါ။");
+
+                                switch (b){
+
+                                    case JOptionPane.YES_NO_OPTION ->{
+
+                                        Stock stock = new Stock();
+                                        stock.setStockcode(stockcode.get());
+                                        stock.setPrice(newvalue);
+
+                                        if (stockdb.setPrice(stock) == 1) {
+                                            AlertBox.showInformation("အောင်မြင်ပါသည်", "‌ဈေးနှုန်း ပြန်လည်ပြုပြခြင်း အောင်မြင်ပါသည်။");
+                                        }
+
+                                    }
+
+                                    case JOptionPane.NO_OPTION -> AlertBox.showInformation("ပြောင်းလဲခြင်း","ဈေးနှုန်း ပြောင်းလဲခြင်း မလုပ်ဆောင်ပါ။");
+
+                                    default -> {
+
+                                        AlertBox.showInformation("ပယ်ဖျက်ခြင်း", "လုပ်ဆောင်မှုကို ပယ်ဖျက်ခဲ့ပါသည်။");
+
+                                    }
+                                }
+
+                            }
+
+                        }catch (NumberFormatException e){
+
+                            AlertBox.showWarning("သတိပြုပါ။", "Number မဟုတ်သည့်အရာများ ထည့်သွင်း၍မရပါ။");
+
+                        }
+
+                    });
+
+
+
+
+
+
+
+
+
+
+
+
                 });
             }
 
@@ -420,7 +597,7 @@ public class PurchaseDashboardViewController implements Initializable {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
 
 
-        java.io.File file = fileChooser.showSaveDialog(stage);
+        File file = fileChooser.showSaveDialog(stage);
 
         if (file != null) {
 

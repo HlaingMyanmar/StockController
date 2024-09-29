@@ -10,6 +10,7 @@ public class PurchasehasStock {
     private  String remarks;
 
 
+
     public PurchasehasStock(String puid, String sid, String stockcode, int qty, int org_price, String remarks) {
         this.puid = puid;
         this.sid = sid;
@@ -25,9 +26,21 @@ public class PurchasehasStock {
         this.qty = qty;
         this.org_price = org_price;
 
+
+    }
+
+
+    public PurchasehasStock(String puid, String stockcode, int qty,int org_price) {
+        this.puid = puid;
+        this.stockcode = stockcode;
+        this.qty = qty;
+        this.org_price = org_price;
+
     }
 
     public PurchasehasStock(){};
+
+
 
 
     public String getPuid() {
