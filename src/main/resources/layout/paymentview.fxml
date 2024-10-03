@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="445.0" prefWidth="964.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.paymentoptions.PaymentviewController">
+   <children>
+      <TableView fx:id="paymenttable" layoutX="6.0" layoutY="41.0" prefHeight="394.0" prefWidth="675.0">
+        <columns>
+          <TableColumn fx:id="paycodeCol" prefWidth="37.0" text="ကုဒ်" />
+          <TableColumn fx:id="paymethodCol" prefWidth="108.0" text="ငွေပေးခြင်းနည်းလမ်း" />
+            <TableColumn fx:id="acCol" prefWidth="122.0" text="အကောင့် နံပါတ်" />
+            <TableColumn fx:id="acnameCol" prefWidth="147.0" text="အကောင့် နာမည်" />
+            <TableColumn fx:id="totalCol" prefWidth="95.0" text="စုစုပေါင်း" />
+            <TableColumn fx:id="createCol" prefWidth="164.0" text="ဖန်တီးသည့်နေ့" />
+        </columns>
+      </TableView>
+      <VBox layoutX="678.0" layoutY="41.0" prefHeight="314.0" prefWidth="292.0">
+         <children>
+            <TextField fx:id="methodtxt" layoutX="10.0" layoutY="10.0" promptText="ငွေပေးခြင်းနည်းလမ်း">
+               <font>
+                  <Font name="Pyidaungsu" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="accountnotxt" layoutX="10.0" layoutY="35.0" promptText="အကောင့် နံပါတ်">
+               <font>
+                  <Font name="Pyidaungsu" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="accountnametxt" layoutX="10.0" layoutY="60.0" promptText="အကောင့် နာမည်">
+               <font>
+                  <Font name="Pyidaungsu" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="totaltxt" layoutX="20.0" layoutY="149.0" promptText="စုစုပေါင်း">
+               <font>
+                  <Font name="Pyidaungsu" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
+      <AnchorPane prefHeight="35.0" prefWidth="966.0" style="-fx-background-color: #505050;">
+         <children>
+            <Label fx:id="lbtotal" layoutX="-1.0" prefHeight="34.0" prefWidth="970.0" text="Total Amount" textFill="WHITE">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="13.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Button fx:id="savebtn" focusTraversable="false" layoutX="688.0" layoutY="362.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" text="သိမ်းမည်။" textFill="#3700ff">
+         <font>
+            <Font name="Pyidaungsu Bold" size="12.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

@@ -50,8 +50,8 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Setting">
                <items>
-                  <MenuItem mnemonicParsing="false" text="ပစ္စည်းစာရင်း" />
-                  <MenuItem mnemonicParsing="false" text="Delete" />
+                  <MenuItem fx:id="paymentbtn" mnemonicParsing="false" text="ငွေပေးချေခြင်းပုံစံ" />
+                  <MenuItem fx:id="warrantybtn" mnemonicParsing="false" text="အာမခံ" />
                </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Help">

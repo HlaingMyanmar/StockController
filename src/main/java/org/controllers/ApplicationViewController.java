@@ -33,11 +33,15 @@ public class ApplicationViewController implements Initializable {
     @FXML
     private MenuItem showsupplierbtn;
 
-    @FXML
-    private MenuItem newPurchasebtn;
 
     @FXML
     private MenuItem purchaseListsbtn;
+
+    @FXML
+    private MenuItem paymentbtn;
+
+    @FXML
+    private MenuItem warrantybtn;
 
     @FXML
     private AnchorPane switchPane;
@@ -100,10 +104,50 @@ public class ApplicationViewController implements Initializable {
         });
 
 
-        newPurchasebtn.setOnAction(_ -> {
+        warrantybtn.setOnAction(_ -> {
+
+            Stage stage = new Stage();
 
 
 
+            FXMLLoader fxmlLoader = new FXMLLoader(ApplicationViewController.class.getResource("/layout/warrantyview.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            stage.initStyle(StageStyle.UTILITY);
+            stage.initModality(Modality.WINDOW_MODAL);
+            Stage mainStage = (Stage) switchPane.getScene().getWindow();
+            stage.setTitle("Warranty");
+            stage.initOwner(mainStage);
+            stage.setScene(scene);
+            stage.show();
+
+
+        });
+
+        paymentbtn.setOnAction(event -> {
+
+            Stage stage = new Stage();
+
+
+
+            FXMLLoader fxmlLoader = new FXMLLoader(ApplicationViewController.class.getResource("/layout/paymentview.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            stage.initStyle(StageStyle.UTILITY);
+            stage.initModality(Modality.WINDOW_MODAL);
+            Stage mainStage = (Stage) switchPane.getScene().getWindow();
+            stage.setTitle("ငွေပေး‌ချေခြင်းပုံစံ");
+            stage.initOwner(mainStage);
+            stage.setScene(scene);
+            stage.show();
 
         });
 

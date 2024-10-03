@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="326.0" prefWidth="514.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.warrantyoptions.WarrantyController">
+   <children>
+      <TableView fx:id="warrantytable" layoutX="14.0" layoutY="16.0" prefHeight="255.0" prefWidth="477.0" stylesheets="@../css/table.css">
+        <columns>
+          <TableColumn fx:id="codeCol" prefWidth="123.0" text="Warranty ID" />
+          <TableColumn fx:id="nameCol" prefWidth="353.0" text="Warranty Description" />
+        </columns>
+      </TableView>
+      <TextField fx:id="name" layoutX="9.0" layoutY="283.0" prefHeight="32.0" prefWidth="224.0" promptText="Warranty">
+         <font>
+            <Font name="Pyidaungsu" size="12.0" />
+         </font>
+      </TextField>
+      <Button fx:id="savebtn" layoutX="245.0" layoutY="287.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="ADD">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
