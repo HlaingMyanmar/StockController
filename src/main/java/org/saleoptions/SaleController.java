@@ -1,5 +1,7 @@
 package org.saleoptions;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,14 +19,21 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.Alerts.AlertBox;
 import org.controllers.ApplicationViewController;
 import org.databases.Stockdb;
+import org.models.Brand;
 import org.models.Stock;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.warrantyoptions.Warranty;
+import org.warrantyoptions.Warrantydb;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static org.controllers.CategorController._status;
@@ -107,7 +116,7 @@ public class SaleController implements Initializable {
     private TextField stocktotaltxt;
 
     @FXML
-    private ComboBox<?> stockwarranty;
+    private ComboBox<String> stockwarranty;
 
     @FXML
     private Button submitItembtn;
@@ -118,6 +127,7 @@ public class SaleController implements Initializable {
 
     Stockdb stockdb = context.getBean("stockdb", Stockdb.class);
     Saledb saledb  = context.getBean("saledb",Saledb.class);
+    Warrantydb warrantydb  = context.getBean("warrantydb",Warrantydb.class);
 
 
 
@@ -129,8 +139,142 @@ public class SaleController implements Initializable {
         actionEvent();
         tableIni();
 
+        conboxData();
+
+
+
 
     }
+
+    private void conboxData() {
+
+
+        ObservableList<String> list = FXCollections.observableArrayList();
+
+        list.addAll( warrantydb.getAllList().stream()
+                .map(Warranty::getWdesc)
+                .toList());
+
+        stockwarranty.setItems(list);
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+    private void keyRelease(TextField stockpricetxt) {
+
+
+
+        stockqtytxt.setOnKeyPressed(event -> {
+
+            if(event.getCode() == KeyCode.TAB){
+
+                if(stockpricetxt.getText().isEmpty()){
+
+                    stockpricetxt.setText("0");
+                    stockpricetxt.selectAll();
+
+                }
+                else {
+
+                    int qty = stockqtytxt.getText()==null?0: Integer.parseInt(stockqtytxt.getText());
+                    int price = stockpricetxt.getText()==null?0:Integer.parseInt(stockpricetxt.getText());
+                    int discount = Objects.equals(stockdiscount.getText(), "") ?0:Integer.parseInt(stockdiscount.getText());
+
+                    int result = (qty*price)-discount;
+
+                    stocktotaltxt.setText(String.valueOf(result));
+                }
+
+
+            }
+
+
+        });
+
+        stockpricetxt.setOnKeyPressed(event -> {
+
+            if(event.getCode() == KeyCode.TAB){
+
+                if(stockdiscount.getText().isEmpty()){
+
+                    stockdiscount.setText("0");
+                    stockdiscount.selectAll();
+
+                }
+                else {
+
+                    int qty = stockqtytxt.getText()==null?0: Integer.parseInt(stockqtytxt.getText());
+                    int price = stockpricetxt.getText()==null?0:Integer.parseInt(stockpricetxt.getText());
+                    int discount =stockdiscount.getText()==""?0:Integer.parseInt(stockdiscount.getText());
+
+                    int result = (qty*price)-discount;
+
+                    stocktotaltxt.setText(String.valueOf(result));
+                }
+
+
+            }
+
+
+        });
+
+
+
+
+
+        stockpricetxt.setOnKeyReleased(event -> {
+
+            try {
+
+                int discount = Objects.equals(stockdiscount.getText(), "") ?0:Integer.parseInt(stockdiscount.getText());
+
+
+                int qty = stockqtytxt.getText()==null?0: Integer.parseInt(stockqtytxt.getText());
+                int price = stockpricetxt.getText()==null?0:Integer.parseInt(stockpricetxt.getText());
+
+                int result = (qty*price)-discount;
+
+                stocktotaltxt.setText(String.valueOf(result));
+
+            }catch (NumberFormatException _e){
+
+                if(stockpricetxt.getText().isEmpty()){
+
+                    stockpricetxt.setText("0");
+                    stockpricetxt.selectAll();
+                }
+                else {
+
+                    AlertBox.showWarning("Not Allowed", "This text is't allowed , Please Check insert data?"+"\n"+"' "+stockpricetxt.getText() +" '"+" That is not number ......");
+                    stockpricetxt.setText("");
+
+                }
+
+
+
+            }
+
+
+        });
+
+
+
+
+
+
+
+    }
+
+
 
     private void tableIni() {
 
@@ -143,7 +287,6 @@ public class SaleController implements Initializable {
         priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
         discountCol.setCellValueFactory(new PropertyValueFactory<>("discount"));
         totalCol.setCellValueFactory(new PropertyValueFactory<>("total"));
-
 
 
 
@@ -170,6 +313,7 @@ public class SaleController implements Initializable {
                 assert stock != null;
                 stocknametxt.setText(stock.getStockname());
                 stockpricetxt.setText(String.valueOf(stock.getPrice()));
+                stockqtytxt.setText(String.valueOf(stock.getQty()));
 
 
 
@@ -178,6 +322,28 @@ public class SaleController implements Initializable {
 
 
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         mainPane.setOnKeyPressed(event -> {
 
@@ -214,5 +380,57 @@ public class SaleController implements Initializable {
     }
 
     private void ini() {
+
+
+
+        odate.setText(String.valueOf(LocalDate.now()));
+
+        keyRelease(stockqtytxt);
+
+        keyRelease(stockpricetxt);
+
+      stockdiscount.setOnKeyReleased(event -> {
+
+
+          try {
+
+              int discount = Objects.equals(stockdiscount.getText(), "") ?0:Integer.parseInt(stockdiscount.getText());
+
+
+              int qty = stockqtytxt.getText()==null?0: Integer.parseInt(stockqtytxt.getText());
+              int price = stockpricetxt.getText()==null?0:Integer.parseInt(stockpricetxt.getText());
+
+              int result = (qty*price)-discount;
+
+              stocktotaltxt.setText(String.valueOf(result));
+
+          }catch (NumberFormatException _e){
+
+              if(stockpricetxt.getText().isEmpty()){
+
+                  stockpricetxt.setText("0");
+                  stockpricetxt.selectAll();
+              }
+              else {
+
+                  AlertBox.showWarning("Not Allowed", "This text is't allowed , Please Check insert data?"+"\n"+"' "+stockpricetxt.getText() +" '"+" That is not number ......");
+                  stockpricetxt.setText("");
+
+              }
+
+
+
+          }
+
+
+
+      });
+
+
+
+
+
     }
+
+
 }

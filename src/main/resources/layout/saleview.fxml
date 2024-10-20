@@ -127,11 +127,26 @@
                   <Font name="Pyidaungsu Bold" size="12.0" />
                </font>
             </Label>
+            <TextField fx:id="stockdiscount" layoutX="201.0" layoutY="144.0" prefHeight="32.0" prefWidth="136.0" promptText="Price">
+               <font>
+                  <Font name="Pyidaungsu" size="12.0" />
+               </font>
+            </TextField>
+            <ComboBox fx:id="stockwarranty" editable="true" layoutX="4.0" layoutY="205.0" prefHeight="30.0" prefWidth="165.0" promptText="အာမခံ" />
+            <Label layoutX="201.0" layoutY="122.0" text="လျော့ဈေး" textFill="#4527a0">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+            </Label>
             <TextField fx:id="stocktotaltxt" editable="false" layoutX="5.0" layoutY="267.0" prefHeight="37.0" prefWidth="337.0" promptText="Amount">
                <font>
                   <Font name="Pyidaungsu" size="12.0" />
                </font>
             </TextField>
+            <TextArea fx:id="stockremarktxt" layoutX="4.0" layoutY="334.0" prefHeight="49.0" prefWidth="358.0" promptText="Remarks">
+               <font>
+                  <Font name="Pyidaungsu" size="12.0" />
+               </font></TextArea>
             <Label layoutX="4.0" layoutY="242.0" text="စုစုပေါင်း" textFill="#4527a0">
                <font>
                   <Font name="Pyidaungsu Bold" size="12.0" />
@@ -142,21 +157,6 @@
                   <Font name="Pyidaungsu Bold" size="12.0" />
                </font>
             </Label>
-            <TextArea fx:id="stockremarktxt" layoutX="4.0" layoutY="334.0" prefHeight="49.0" prefWidth="358.0" promptText="Remarks">
-               <font>
-                  <Font name="Pyidaungsu" size="12.0" />
-               </font></TextArea>
-            <TextField fx:id="stockdiscount" layoutX="201.0" layoutY="144.0" prefHeight="32.0" prefWidth="136.0" promptText="Price">
-               <font>
-                  <Font name="Pyidaungsu" size="12.0" />
-               </font>
-            </TextField>
-            <Label layoutX="201.0" layoutY="122.0" text="လျော့ဈေး" textFill="#4527a0">
-               <font>
-                  <Font name="Pyidaungsu Bold" size="12.0" />
-               </font>
-            </Label>
-            <ComboBox fx:id="stockwarranty" editable="true" layoutX="4.0" layoutY="205.0" prefHeight="30.0" prefWidth="165.0" promptText="အာမခံ" />
             <Label layoutX="6.0" layoutY="183.0" text="အာမခံ" textFill="#4527a0">
                <font>
                   <Font name="Pyidaungsu Bold" size="12.0" />
