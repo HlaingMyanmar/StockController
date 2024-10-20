@@ -332,7 +332,7 @@ public class PurchaseDashboardViewController extends Deliver implements Initiali
 
 
 
-        Callback<TableColumn<PurchaseList, String>, TableCell<PurchaseList, String>> cellFactory = (_) -> new TableCell<>() {
+        Callback<TableColumn<PurchaseList, String>, TableCell<PurchaseList, String>> cellFactory = (event) -> new TableCell<>() {
 
             private final Button editButton = new Button();
             private final Image editImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/image/editdata.png")));

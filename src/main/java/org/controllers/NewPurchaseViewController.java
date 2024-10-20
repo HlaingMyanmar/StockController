@@ -189,7 +189,7 @@ public class NewPurchaseViewController extends Deliver  implements Initializable
     protected void saveAction(){
 
 
-        addItem.setOnAction(_ -> {
+        addItem.setOnAction(event -> {
 
             if(purchaseidtxt.getText()==null || datetxt.getText()==null || stockidtxt.getText() == null || stocknametxt.getText()== null || stockcategorycobox.getText() ==null || stockbrandcobox.getValue() == null || stockqtytxt.getText().isEmpty() || stockpricetxt.getText().isEmpty() ){
 
@@ -264,7 +264,7 @@ public class NewPurchaseViewController extends Deliver  implements Initializable
 
         });
 
-        removeItem.setOnAction(_ -> {
+        removeItem.setOnAction(event -> {
 
             try {
 
@@ -309,7 +309,7 @@ public class NewPurchaseViewController extends Deliver  implements Initializable
 
         });
 
-        submitItembtn.setOnAction(_ -> {
+        submitItembtn.setOnAction(event -> {
 
 
             if(purchaseidtxt.getText()==null || datetxt.getText()==null || supplierid.getText()==null || __predataList.isEmpty()){
@@ -395,7 +395,7 @@ public class NewPurchaseViewController extends Deliver  implements Initializable
 
         datetxt.setText(String.valueOf(LocalDate.now()));
 
-        itemnew.setOnAction(_ -> {
+        itemnew.setOnAction(event -> {
 
             if(itemnew.isSelected()){
 
@@ -409,7 +409,7 @@ public class NewPurchaseViewController extends Deliver  implements Initializable
 
         });
 
-        findcategorybtn.setOnAction(_ -> {
+        findcategorybtn.setOnAction(event -> {
 
             Stage stage = new Stage();
 
@@ -437,7 +437,7 @@ public class NewPurchaseViewController extends Deliver  implements Initializable
 
         });
 
-        stockcategorycobox.setOnMouseClicked(_ -> {
+        stockcategorycobox.setOnMouseClicked(event -> {
             stockcategorycobox.setText(_cacode);
         });
 
@@ -544,7 +544,7 @@ public class NewPurchaseViewController extends Deliver  implements Initializable
             }
         });
 
-        stockidtxt.setOnMouseClicked(_ -> {
+        stockidtxt.setOnMouseClicked(event -> {
 
 
 
@@ -607,7 +607,7 @@ public class NewPurchaseViewController extends Deliver  implements Initializable
 
     private void keyRelease(TextField stockpricetxt) {
 
-        stockpricetxt.setOnKeyReleased(_ -> {
+        stockpricetxt.setOnKeyReleased(event -> {
 
             try {
 

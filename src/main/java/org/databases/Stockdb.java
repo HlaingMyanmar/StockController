@@ -4,6 +4,7 @@ import org.DAO.DataAccessObject;
 import org.models.Brand;
 import org.models.Stock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -43,7 +44,9 @@ public class Stockdb implements DataAccessObject<Stock> {
                 "INNER JOIN category c ON c.cid = s.cid\n" +
                 "INNER JOIN brand b ON b.bid = s.bid order by s.stockcode desc";
 
-       return jdbc.query(sql, (rs, _) ->getStock(rs));
+        return jdbc.query(sql, (rs, rowNum) -> getStock(rs));
+
+
 
 
     }

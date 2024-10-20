@@ -29,6 +29,8 @@ public class Orderdb implements DataAccessObject<Order> {
 
     @Override
     public List<Order> getAllList() {
+
+
         return jdbc.query(" SELECT * FROM `orderr` order BY odate desc,cast(Substring(oid,13) as Unsigned)desc ", (rs, rowNum) ->getOrder(rs));
     }
 
@@ -50,9 +52,12 @@ public class Orderdb implements DataAccessObject<Order> {
 
     @Override
     public int insert(Order order) {
+
         String sql = "INSERT INTO `orderr`(`oid`, `odate`, `cuname`, `cuphone`, `remark`, `payid`) VALUES (:oid,:odate,:cuname,:cuphone,:remark,:payid)";
 
-        return jdbc.query(sql, (rs, rowNum) -> getOrder(rs));
+        BeanPropertySqlParameterSource parma = new BeanPropertySqlParameterSource(order);
+
+        return jdbc.update(sql,parma);
 
     }
 

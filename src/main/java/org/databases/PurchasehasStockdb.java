@@ -37,7 +37,7 @@ public class PurchasehasStockdb implements DataAccessObject<PurchasehasStock> {
                 
                 """;
 
-        return jdbc.query(sql, (rs, _) ->getPurchasstock(rs));
+        return jdbc.query(sql, (rs, event) ->getPurchasstock(rs));
     }
 
     public List<PurchaseList>  getPurchaseDashboardList(){
@@ -55,7 +55,7 @@ public class PurchasehasStockdb implements DataAccessObject<PurchasehasStock> {
                 
                 """;
 
-        return jdbc.query(sql, (rs, _) ->getPuchaseList(rs));
+        return jdbc.query(sql, (rs, event) ->getPuchaseList(rs));
 
     }
 

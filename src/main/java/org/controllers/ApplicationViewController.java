@@ -57,7 +57,7 @@ public class ApplicationViewController implements Initializable {
 
     private void ini() {
 
-        showbrandbtn.setOnAction(_ -> {
+        showbrandbtn.setOnAction(event -> {
 
             Stage stage = new Stage();
 
@@ -80,7 +80,7 @@ public class ApplicationViewController implements Initializable {
 
         });
 
-        showcategorybtn.setOnAction(_ -> {
+        showcategorybtn.setOnAction(event -> {
 
             Stage stage = new Stage();
 
@@ -104,7 +104,7 @@ public class ApplicationViewController implements Initializable {
         });
 
 
-        warrantybtn.setOnAction(_ -> {
+        warrantybtn.setOnAction(event -> {
 
             Stage stage = new Stage();
 
@@ -174,7 +174,7 @@ public class ApplicationViewController implements Initializable {
 
         });
 
-        showsupplierbtn.setOnAction(_ -> {
+        showsupplierbtn.setOnAction(event -> {
 
             FXMLLoader fxmlLoader2 = new FXMLLoader(ApplicationViewController.class.getResource("/layout/supplierview.fxml"));
             Node node = null;
@@ -198,7 +198,7 @@ public class ApplicationViewController implements Initializable {
 
 
 
-        showStockbtn.setOnAction(_ -> {
+        showStockbtn.setOnAction(event -> {
 
             FXMLLoader fxmlLoader2 = new FXMLLoader(ApplicationViewController.class.getResource("/layout/stockview.fxml"));
             Node node = null;

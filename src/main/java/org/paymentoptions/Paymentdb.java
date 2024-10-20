@@ -65,6 +65,7 @@ public class Paymentdb implements DataAccessObject<Payment> {
 
         String sql = "UPDATE `payment` SET `paymethodname`=:paymethodname,`payaccount`=:payaccount ,`accountname`=:accountname WHERE `payid` = :payid";
 
+
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(payment);
 
         return jdbc.update(sql,param);

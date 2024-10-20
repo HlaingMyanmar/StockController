@@ -130,7 +130,7 @@ public class StockViewController extends StockGenerate implements Initializable 
         stocktable.setItems(sortedData);
         updateLabels(filteredData);
 
-        stocktable.setOnMouseClicked(_ -> {
+        stocktable.setOnMouseClicked(event -> {
 
 
             Stock st = (Stock) stocktable.getSelectionModel().getSelectedItem();
@@ -198,7 +198,7 @@ public class StockViewController extends StockGenerate implements Initializable 
 
     private void getActionEvent(){
 
-        exportpdfbtn.setOnAction(_ -> {
+        exportpdfbtn.setOnAction(event -> {
 
             exportToPDF(dao.getAllList(),new Stage());
 
