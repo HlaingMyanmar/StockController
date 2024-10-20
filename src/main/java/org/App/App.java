@@ -12,7 +12,7 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
 
 
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/layout/applicationview.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/layout/saleview.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("အကောင့်ဝင်ရန်။");
         stage.setScene(scene);

@@ -25,12 +25,12 @@
             </Label>
          </children>
       </AnchorPane>
-      <Label layoutX="829.0" layoutY="460.0" prefHeight="37.0" prefWidth="136.0" style="-fx-alignment: center; -fx-background-color: #FFFFFF;" text="အရေအတွက် :" textFill="#4527a0">
+      <Label layoutX="898.0" layoutY="460.0" prefHeight="37.0" prefWidth="136.0" style="-fx-alignment: center; -fx-background-color: #FFFFFF;" text="အရေအတွက် :" textFill="#4527a0">
          <font>
             <Font name="Pyidaungsu Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="lbCount" layoutX="966.0" layoutY="460.0" prefHeight="37.0" prefWidth="101.0" style="-fx-background-color: #FFFFFF; -fx-alignment: left;" text="Count =" textFill="#ff0202">
+      <Label fx:id="lbCount" layoutX="1035.0" layoutY="460.0" prefHeight="37.0" prefWidth="101.0" style="-fx-background-color: #FFFFFF; -fx-alignment: left;" text="Count =" textFill="#ff0202">
          <font>
             <Font name="Pyidaungsu Bold" size="18.0" />
          </font>
@@ -170,13 +170,13 @@
             <TableColumn fx:id="nameCol" prefWidth="206.0" text="ပစ္စည်းအမျိုးအမည်" />
             <TableColumn fx:id="warrantyCol" prefWidth="104.0" text="အာမခံ" />
             <TableColumn fx:id="qtyCol" prefWidth="95.0" text="အရေအတွက်" />
-            <TableColumn fx:id="priceCol2" prefWidth="75.0" text="ဈေးနှုန်း">
+            <TableColumn fx:id="priceCol2" prefWidth="155.0" text="ဈေးနှုန်း သတ်မှတ်ချက်">
                <columns>
                   <TableColumn fx:id="priceCol" prefWidth="75.0" text="ဈေးနှုန်း" />
-                  <TableColumn fx:id="discountCol" prefWidth="75.0" text="ဈေးနှုန်း" />
+                  <TableColumn fx:id="discountCol" prefWidth="75.0" text="လျော့ဈေး" />
                </columns>
             </TableColumn>
-            <TableColumn fx:id="totalCol" prefWidth="106.0" text="စုစုပေါင်း" />
+            <TableColumn fx:id="totalCol" prefWidth="100.0" text="စုစုပေါင်း" />
          </columns>
       </TableView>
       <TextField fx:id="odate" editable="false" layoutX="17.0" layoutY="30.0" prefHeight="30.0" prefWidth="165.0" promptText="Supplier ID">

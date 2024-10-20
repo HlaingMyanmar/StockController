@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Component("saledb")
-public class saledb implements DataAccessObject<Sale> {
+public class Saledb implements DataAccessObject<Sale> {
 
 
     private NamedParameterJdbcTemplate jdbc;

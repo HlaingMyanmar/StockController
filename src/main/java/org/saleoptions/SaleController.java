@@ -18,7 +18,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.controllers.ApplicationViewController;
+import org.databases.Stockdb;
 import org.models.Stock;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.IOException;
 import java.net.URL;
@@ -111,6 +114,11 @@ public class SaleController implements Initializable {
 
 
 
+    ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+
+    Stockdb stockdb = context.getBean("stockdb", Stockdb.class);
+    Saledb saledb  = context.getBean("saledb",Saledb.class);
+
 
 
 
@@ -146,6 +154,26 @@ public class SaleController implements Initializable {
         stockidtxt.setOnMouseClicked(event -> {
 
             stockidtxt.setText(_stockcode);
+
+
+            stockidtxt.setOnMouseClicked(e -> {
+
+                Stock stock  = (Stock) stockdb.getAllList()
+                        .stream()
+                        .filter(stock1 -> stock1.getStockcode().equals(_stockcode))
+                        .findFirst()
+                        .orElse(null);;
+
+
+                stockidtxt.setText(_stockcode);
+
+                assert stock != null;
+                stocknametxt.setText(stock.getStockname());
+                stockpricetxt.setText(String.valueOf(stock.getPrice()));
+
+
+
+            });
 
 
 
