@@ -8,6 +8,7 @@ public class SaleDataList {
     private int qty;
     private int price;
     private int discount;
+    private int total;
 
     public SaleDataList(String stockcode, String stockname, String wdesc, int qty, int price, int discount) {
         this.stockcode = stockcode;
@@ -64,5 +65,9 @@ public class SaleDataList {
 
     public void setDiscount(int discount) {
         this.discount = discount;
+    }
+
+    public int getTotal() {
+        return (qty*price)-discount;
     }
 }

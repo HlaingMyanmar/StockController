@@ -26,6 +26,7 @@ import org.warrantyoptions.Warrantydb;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Locale;
 import java.util.Objects;
@@ -133,6 +134,8 @@ public class SaleController implements Initializable {
     Stockdb stockdb = context.getBean("stockdb", Stockdb.class);
     Saledb saledb  = context.getBean("saledb",Saledb.class);
     Warrantydb warrantydb  = context.getBean("warrantydb",Warrantydb.class);
+
+    ObservableList<SaleDataList> __presaledataList = FXCollections.observableArrayList();
 
 
 
@@ -368,10 +371,46 @@ public class SaleController implements Initializable {
 
 
 
-
             if (areFieldEmpty(odate, ocode, stockidtxt, stocknametxt,stockqtytxt,stockpricetxt,stockdiscount) || areComboxFieldEmpty(stockwarranty) || areAllCheckboxesUnchecked(kbzchebox,wavechebox,cashchebox)) {
 
                 AlertBox.showError("အရောင်း စာမျက်နှာ","လိုအပ်သည့် အချက်အလက်များ ဖြည့်သွင်းပါ။");
+
+
+            }
+
+            else {
+
+
+               Date orderdate = Date.valueOf(odate.getText());
+               String ordercode = ocode.getText();
+               String customerid =  cuid.getText();
+               String customerphone = cuphone.getText();
+               String stockid = stockidtxt.getText();
+               String stockname=  stocknametxt.getText();
+               int qty = Integer.parseInt(stockqtytxt.getText());
+               int price = Integer.parseInt(stockpricetxt.getText());
+               int discount = Integer.parseInt(stockdiscount.getText());
+               String warranty =  stockwarranty.getValue();
+               String checkboxid = String.valueOf(getFirstSelectedCheckbox(kbzchebox,wavechebox,cashchebox).getText());
+
+                boolean isDuplicate = __presaledataList.stream()
+                        .anyMatch(b -> b.getStockcode().equals(stockid));
+
+                if(isDuplicate){
+
+                    AlertBox.showError("အရောင်း စာမျက်နှာ","သင့်ထည့်သွင်းထားသော ပစ္စည်းများသည် ထပ်တူကျနေပါသည်။");
+
+                }
+                else {
+
+                    __presaledataList.add(new SaleDataList(stockid,stockname,warranty,qty,price,discount));
+                    saletable.setItems(__presaledataList);
+
+
+                }
+
+
+
 
 
             }
@@ -407,9 +446,15 @@ public class SaleController implements Initializable {
 
         for( ComboBox<String> field : fields) {
 
-            field.setStyle("-fx-background-color: red;");
-            hasEmptyFields = true;
-            return true;
+            if(field.getValue().isEmpty()){
+
+                field.setStyle("-fx-background-color: red;");
+                hasEmptyFields = true;
+                return true;
+
+            }
+
+
 
         }
         return false;
@@ -496,6 +541,15 @@ public class SaleController implements Initializable {
                 checkbox.setSelected(false);
             }
         }
+    }
+
+    private CheckBox getFirstSelectedCheckbox(CheckBox... checkBoxes) {
+        for (CheckBox checkbox : checkBoxes) {
+            if (checkbox.isSelected()) {
+                return checkbox;
+            }
+        }
+        return null;
     }
 
 
