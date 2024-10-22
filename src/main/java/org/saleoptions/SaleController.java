@@ -7,13 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -367,7 +361,71 @@ public class SaleController implements Initializable {
             }
 
         });
+
+
+
+        addItem.setOnAction(event -> {
+
+
+
+
+            if (areFieldEmpty(odate, ocode, stockidtxt, stocknametxt,stockqtytxt,stockpricetxt,stockdiscount) || areComboxFieldEmpty(stockwarranty) || areAllCheckboxesUnchecked(kbzchebox,wavechebox,cashchebox)) {
+
+                AlertBox.showError("အရောင်း စာမျက်နှာ","လိုအပ်သည့် အချက်အလက်များ ဖြည့်သွင်းပါ။");
+
+
+            }
+
+
+
+        });
+
+
+
     }
+
+    private boolean areFieldEmpty(TextField... fields) {
+
+        boolean hasEmptyFields = false;
+
+        for (TextField field : fields) {
+            if (field.getText().isEmpty()) {
+
+                field.setStyle("-fx-background-color: red;"); // Highlight empty field in red
+                hasEmptyFields = true;
+                return true;
+            }
+        }
+        return false;
+
+
+    }
+
+    private  boolean areComboxFieldEmpty(ComboBox<String>... fields) {
+
+        boolean hasEmptyFields = false;
+
+        for( ComboBox<String> field : fields) {
+
+            field.setStyle("-fx-background-color: red;");
+            hasEmptyFields = true;
+            return true;
+
+        }
+        return false;
+
+    }
+
+    private boolean areAllCheckboxesUnchecked(CheckBox... checkboxes) {
+        for (CheckBox checkbox : checkboxes) {
+            if (checkbox.isSelected()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 
     private void ini() {
 
@@ -418,52 +476,26 @@ public class SaleController implements Initializable {
 
 
 
-        kbzchebox.setOnAction(event -> {
+        kbzchebox.setOnAction(event -> handleCheckboxSelection(kbzchebox, wavechebox, cashchebox));
+        wavechebox.setOnAction(event -> handleCheckboxSelection(wavechebox, kbzchebox, cashchebox));
+        cashchebox.setOnAction(event -> handleCheckboxSelection(cashchebox, kbzchebox, wavechebox));
 
 
-            if(kbzchebox.isSelected()){
 
-                wavechebox.setSelected(false);
-                cashchebox.setSelected(false);
 
+
+
+
+
+    }
+
+    private void handleCheckboxSelection(CheckBox selectedCheckbox, CheckBox... otherCheckboxes) {
+
+        if (selectedCheckbox.isSelected()) {
+            for (CheckBox checkbox : otherCheckboxes) {
+                checkbox.setSelected(false);
             }
-
-
-        });
-
-        wavechebox.setOnAction(event -> {
-
-
-            if(wavechebox.isSelected()){
-
-                kbzchebox.setSelected(false);
-                cashchebox.setSelected(false);
-
-            }
-
-
-        });
-
-        cashchebox.setOnAction(event -> {
-
-
-            if(cashchebox.isSelected()){
-
-                kbzchebox.setSelected(false);
-                wavechebox.setSelected(false);
-
-            }
-
-
-        });
-
-
-
-
-
-
-
-
+        }
     }
 
 
