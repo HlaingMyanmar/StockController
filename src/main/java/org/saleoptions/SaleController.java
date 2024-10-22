@@ -1,5 +1,6 @@
 package org.saleoptions;
 
+import com.jfoenix.controls.JFXCheckBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -36,6 +37,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static org.Generator.Currency.convertToMyanmarCurrency;
 import static org.controllers.CategorController._status;
 import static org.controllers.StockViewController._stockcode;
 
@@ -113,13 +115,22 @@ public class SaleController implements Initializable {
     private TextArea stockremarktxt;
 
     @FXML
-    private TextField stocktotaltxt;
+    private Label stocktotaltxt;
 
     @FXML
     private ComboBox<String> stockwarranty;
 
     @FXML
     private Button submitItembtn;
+
+    @FXML
+    private JFXCheckBox cashchebox;
+
+    @FXML
+    private JFXCheckBox wavechebox;
+
+    @FXML
+    private JFXCheckBox kbzchebox;
 
 
 
@@ -191,7 +202,7 @@ public class SaleController implements Initializable {
 
                     int result = (qty*price)-discount;
 
-                    stocktotaltxt.setText(String.valueOf(result));
+                    stocktotaltxt.setText(convertToMyanmarCurrency(result));
                 }
 
 
@@ -218,7 +229,7 @@ public class SaleController implements Initializable {
 
                     int result = (qty*price)-discount;
 
-                    stocktotaltxt.setText(String.valueOf(result));
+                    stocktotaltxt.setText(convertToMyanmarCurrency(result));
                 }
 
 
@@ -243,7 +254,7 @@ public class SaleController implements Initializable {
 
                 int result = (qty*price)-discount;
 
-                stocktotaltxt.setText(String.valueOf(result));
+                stocktotaltxt.setText(convertToMyanmarCurrency(result));
 
             }catch (NumberFormatException _e){
 
@@ -324,27 +335,6 @@ public class SaleController implements Initializable {
         });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         mainPane.setOnKeyPressed(event -> {
 
 
@@ -389,7 +379,7 @@ public class SaleController implements Initializable {
 
         keyRelease(stockpricetxt);
 
-      stockdiscount.setOnKeyReleased(event -> {
+        stockdiscount.setOnKeyReleased(event -> {
 
 
           try {
@@ -402,7 +392,7 @@ public class SaleController implements Initializable {
 
               int result = (qty*price)-discount;
 
-              stocktotaltxt.setText(String.valueOf(result));
+              stocktotaltxt.setText(convertToMyanmarCurrency(result));
 
           }catch (NumberFormatException _e){
 
@@ -428,9 +418,54 @@ public class SaleController implements Initializable {
 
 
 
+        kbzchebox.setOnAction(event -> {
+
+
+            if(kbzchebox.isSelected()){
+
+                wavechebox.setSelected(false);
+                cashchebox.setSelected(false);
+
+            }
+
+
+        });
+
+        wavechebox.setOnAction(event -> {
+
+
+            if(wavechebox.isSelected()){
+
+                kbzchebox.setSelected(false);
+                cashchebox.setSelected(false);
+
+            }
+
+
+        });
+
+        cashchebox.setOnAction(event -> {
+
+
+            if(cashchebox.isSelected()){
+
+                kbzchebox.setSelected(false);
+                wavechebox.setSelected(false);
+
+            }
+
+
+        });
+
+
+
+
+
+
 
 
     }
+
 
 
 }
