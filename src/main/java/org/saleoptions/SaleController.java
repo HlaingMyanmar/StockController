@@ -399,11 +399,14 @@ public class SaleController implements Initializable {
                 if(isDuplicate){
 
                     AlertBox.showError("အရောင်း စာမျက်နှာ","သင့်ထည့်သွင်းထားသော ပစ္စည်းများသည် ထပ်တူကျနေပါသည်။");
-
+                    getClear();
                 }
                 else {
 
                     __presaledataList.add(new SaleDataList(stockid,stockname,warranty,qty,price,discount));
+
+                    getClear();
+
                     saletable.setItems(__presaledataList);
 
 
@@ -419,8 +422,27 @@ public class SaleController implements Initializable {
 
         });
 
+        removeItem.setOnAction(event -> {
 
 
+           int indexNum =  saletable.getSelectionModel().getSelectedIndex();
+
+           __presaledataList.remove(indexNum);
+
+
+        });
+
+
+
+    }
+
+    private void getClear(){
+        stockidtxt.setText("");
+        stocknametxt.setText("");
+        stockqtytxt.setText("");
+        stockpricetxt.setText("");
+        stockdiscount.setText("");
+        stockwarranty.setValue("");
     }
 
     private boolean areFieldEmpty(TextField... fields) {
