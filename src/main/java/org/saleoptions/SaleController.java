@@ -489,15 +489,20 @@ public class SaleController implements Initializable {
                     if (isSuccess) {
 
                         int check = 0;
+                        int checkp =0;
 
 
                         for (Sale sale : finalSaleList) {
 
 
                             check = stockdb.subQty(new Stock(sale.getStockcode(), sale.getQty(),sale.getPrice()));
+
+                            checkp = paymentdb.sumAmount(new Payment(checkboxid,(sale.getQty()*sale.getPrice())-sale.getDiscount()));
+
+
                         }
 
-                        if(check==1){
+                        if(check==1 && checkp==1) {
 
                             AlertBox.showInformation("အရောင်း စာမျက်နှာ", "အောင်မြင်ပါသည်။");
                         }

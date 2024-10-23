@@ -23,6 +23,11 @@ public class Payment {
 
     }
 
+    public Payment(int payid, int total) {
+        this.payid = payid;
+        this.total = total;
+    }
+
     public Payment(int payid, String paymethodname, String payaccount, int total, Timestamp created_at, String accountname) {
         this.payid = payid;
         this.paymethodname = paymethodname;

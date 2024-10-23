@@ -3,10 +3,12 @@ package org.paymentoptions;
 
 import org.DAO.DataAccessObject;
 import org.models.Brand;
+import org.models.Stock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -69,6 +71,17 @@ public class Paymentdb implements DataAccessObject<Payment> {
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(payment);
 
         return jdbc.update(sql,param);
+    }
+
+    @Transactional
+    public int sumAmount(Payment payment) {
+
+        String sql = "UPDATE payment SET total = total + :total WHERE payid = :payid";
+
+        BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(payment);
+
+        return jdbc.update(sql,param );
+
     }
 
     @Override
