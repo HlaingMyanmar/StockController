@@ -517,6 +517,12 @@ public class SaleController implements Initializable {
 
                         odate.setText(String.valueOf(LocalDate.now()));
 
+                        saletable.getSelectionModel().clearSelection();
+
+                        __presaledataList.clear();
+                        finalSaleList.clear();
+
+
 
                     }
 
