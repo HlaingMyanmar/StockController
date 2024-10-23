@@ -100,7 +100,7 @@ public class Stockdb implements DataAccessObject<Stock> {
     @Transactional
     public int subQty(Stock stock){
 
-        String sql = "UPDATE stock SET price = :price  WHERE stockcode = :stockcode";
+        String sql = "UPDATE stock SET qty = qty- :qty  WHERE stockcode = :stockcode";
 
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(stock);
 

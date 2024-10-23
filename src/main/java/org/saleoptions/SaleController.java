@@ -440,57 +440,67 @@ public class SaleController implements Initializable {
 
         submitItembtn.setOnAction(event -> {
 
+            try {
 
-            if(areFieldEmpty(odate,ocode) || areAllCheckboxesUnchecked(kbzchebox,wavechebox,cashchebox)){
 
+                if (areFieldEmpty(odate, ocode) || areAllCheckboxesUnchecked(kbzchebox, wavechebox, cashchebox)) {
+                    AlertBox.showError("အရောင်း စာမျက်နှာ", "လိုအပ်သည့် အချက်အလက်များ ဖြည့်သွင်းပါ။");
+                    return;
 
-                AlertBox.showError("အရောင်း စာမျက်နှာ","လိုအပ်သည့် အချက်အလက်များ ဖြည့်သွင်းပါ။");
+                }
 
-            }
-            else {
 
                 Date orderdate = Date.valueOf(odate.getText());
                 String ordercode = ocode.getText();
-                String customerid =  cuid.getText();
-                String customerphone = cuphone.getText();
+                String customerid =  cuid.getText().trim();
+                String customerphone = cuphone.getText().trim();
                 int  checkboxid = getPayId(String.valueOf(getFirstSelectedCheckbox(kbzchebox,wavechebox,cashchebox).getText()));
 
 
+                if (!isValidPhoneNumber(customerphone)) {
+                    AlertBox.showError("အရောင်း စာမျက်နှာ", "ဖောက်သည်အိုင်ဒီ သို့မဟုတ် ဖုန်းနံပါတ် မမှန်ကန်ပါ။");
+                    return;
 
-                if(orderdb.insert(new Order(ordercode,orderdate,customerid,customerphone,checkboxid))==1){
-
-
-                    ObservableList<Sale> finalataList = FXCollections.observableArrayList();
-
-                        for(SaleDataList sa :__presaledataList){
-
-
-                            finalataList.add(new Sale(sa.getStockcode(),ordercode,getWarrantyId(sa.getWdesc()),sa.getQty(),sa.getPrice(),sa.getDiscount()));
-
-
-                        }
-
-                    int check=1;
-                    int []result  = saledb.insertBatch(finalataList);
-
-
-                    for(int i :result){
-
-                        if(i!=1 ){
+                }
 
 
 
-                            check =0;
-                            break;
+                if(orderdb.insert(new Order(ordercode,orderdate,customerid,customerphone,checkboxid))==1) {
 
-                        }
 
+                    ObservableList<Sale> finalSaleList = FXCollections.observableArrayList();
+
+                    for (SaleDataList sa : __presaledataList) {
+
+
+                        finalSaleList.add(new Sale(sa.getStockcode(), ordercode, getWarrantyId(sa.getWdesc()), sa.getQty(), sa.getPrice(), sa.getDiscount()));
 
 
                     }
-                    if( check==1 ){
+                    int[] result = saledb.insertBatch(finalSaleList);
+                    boolean isSuccess = true;
+                    for (int res : result) {
+                        if (res != 1) {
+                            isSuccess = false;
+                            break;
+                        }
+                    }
 
-                        AlertBox.showInformation("အရောင်း စာမျက်နှာ","အောင်မြင်ပါသည်။");
+                    if (isSuccess) {
+
+                        int check = 0;
+
+
+                        for (Sale sale : finalSaleList) {
+
+
+                            check = stockdb.subQty(new Stock(sale.getStockcode(), sale.getQty(),sale.getPrice()));
+                        }
+
+                        if(check==1){
+
+                            AlertBox.showInformation("အရောင်း စာမျက်နှာ", "အောင်မြင်ပါသည်။");
+                        }
 
                         getTextFieldClear(cuid,cuphone,stockidtxt,stocknametxt,stockqtytxt,stockpricetxt,stockdiscount);
 
@@ -503,22 +513,32 @@ public class SaleController implements Initializable {
                         odate.setText(String.valueOf(LocalDate.now()));
 
 
-
                     }
 
 
                 }
 
+            } catch (Exception e) {
+
+                e.printStackTrace();
+                AlertBox.showError("အရောင်း စာမျက်နှာ", "အမှားတစ်ခုဖြစ်ပွားခဲ့သည်။");
             }
-
-
-
 
 
         });
 
 
 
+    }
+
+    private boolean isValidCustomerId(String customerId) {
+
+        return customerId != null && customerId.matches("[A-Za-z0-9]+");
+    }
+
+    private boolean isValidPhoneNumber(String phoneNumber) {
+
+        return phoneNumber != null && phoneNumber.matches("\\d{7,15}");
     }
 
 
