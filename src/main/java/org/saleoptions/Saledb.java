@@ -70,6 +70,7 @@ public class Saledb implements DataAccessObject<Sale> {
     }
 
 
+
     public  Sale getSale(ResultSet rs) throws SQLException {
 
         Sale sale = new Sale();

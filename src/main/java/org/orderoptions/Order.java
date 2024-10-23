@@ -34,6 +34,14 @@ public class Order {
         this.total = total;
     }
 
+    public Order(String oid, Date odate, String cuname, String cuphone, int payid) {
+        this.oid = oid;
+        this.odate = odate;
+        this.cuname = cuname;
+        this.cuphone = cuphone;
+        this.payid = payid;
+    }
+
     public int getTotal() {
         return total;
     }

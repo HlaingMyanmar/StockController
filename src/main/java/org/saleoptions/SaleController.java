@@ -19,8 +19,13 @@ import org.controllers.ApplicationViewController;
 import org.databases.Stockdb;
 import org.models.Brand;
 import org.models.Stock;
+import org.orderoptions.Order;
+import org.orderoptions.Orderdb;
+import org.paymentoptions.Payment;
+import org.paymentoptions.Paymentdb;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.w3c.dom.Text;
 import org.warrantyoptions.Warranty;
 import org.warrantyoptions.Warrantydb;
 
@@ -33,6 +38,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static org.Generator.Currency.convertToMyanmarCurrency;
+import static org.Generator.IDGenerate.getID;
 import static org.controllers.CategorController._status;
 import static org.controllers.StockViewController._stockcode;
 
@@ -134,6 +140,8 @@ public class SaleController implements Initializable {
     Stockdb stockdb = context.getBean("stockdb", Stockdb.class);
     Saledb saledb  = context.getBean("saledb",Saledb.class);
     Warrantydb warrantydb  = context.getBean("warrantydb",Warrantydb.class);
+    Orderdb orderdb  = context.getBean("orderdb",Orderdb.class);
+    Paymentdb paymentdb  = context.getBean("paymentdb", Paymentdb.class);
 
     ObservableList<SaleDataList> __presaledataList = FXCollections.observableArrayList();
 
@@ -148,6 +156,8 @@ public class SaleController implements Initializable {
         tableIni();
 
         conboxData();
+
+        ocode.setText(getOrderCode());
 
 
 
@@ -381,10 +391,6 @@ public class SaleController implements Initializable {
             else {
 
 
-               Date orderdate = Date.valueOf(odate.getText());
-               String ordercode = ocode.getText();
-               String customerid =  cuid.getText();
-               String customerphone = cuphone.getText();
                String stockid = stockidtxt.getText();
                String stockname=  stocknametxt.getText();
                int qty = Integer.parseInt(stockqtytxt.getText());
@@ -432,9 +438,139 @@ public class SaleController implements Initializable {
 
         });
 
+        submitItembtn.setOnAction(event -> {
+
+
+            if(areFieldEmpty(odate,ocode) || areAllCheckboxesUnchecked(kbzchebox,wavechebox,cashchebox)){
+
+
+                AlertBox.showError("အရောင်း စာမျက်နှာ","လိုအပ်သည့် အချက်အလက်များ ဖြည့်သွင်းပါ။");
+
+            }
+            else {
+
+                Date orderdate = Date.valueOf(odate.getText());
+                String ordercode = ocode.getText();
+                String customerid =  cuid.getText();
+                String customerphone = cuphone.getText();
+                int  checkboxid = getPayId(String.valueOf(getFirstSelectedCheckbox(kbzchebox,wavechebox,cashchebox).getText()));
+
+
+
+                if(orderdb.insert(new Order(ordercode,orderdate,customerid,customerphone,checkboxid))==1){
+
+
+                    ObservableList<Sale> finalataList = FXCollections.observableArrayList();
+
+                        for(SaleDataList sa :__presaledataList){
+
+
+                            finalataList.add(new Sale(sa.getStockcode(),ordercode,getWarrantyId(sa.getWdesc()),sa.getQty(),sa.getPrice(),sa.getDiscount()));
+
+
+                        }
+
+                    int check=1;
+                    int []result  = saledb.insertBatch(finalataList);
+
+
+                    for(int i :result){
+
+                        if(i!=1 ){
+
+
+
+                            check =0;
+                            break;
+
+                        }
+
+
+
+                    }
+                    if( check==1 ){
+
+                        AlertBox.showInformation("အရောင်း စာမျက်နှာ","အောင်မြင်ပါသည်။");
+
+                        getTextFieldClear(cuid,cuphone,stockidtxt,stocknametxt,stockqtytxt,stockpricetxt,stockdiscount);
+
+                        getComboboxClear(stockwarranty);
+
+                        getCheckClear(kbzchebox,wavechebox,cashchebox);
+
+                        ocode.setText(getOrderCode());
+
+                        odate.setText(String.valueOf(LocalDate.now()));
+
+
+
+                    }
+
+
+                }
+
+            }
+
+
+
+
+
+        });
+
 
 
     }
+
+
+    private void getTextFieldClear( TextField... textFields) {
+
+        for (TextField textField : textFields) {
+
+            textField.clear();
+
+        }
+
+
+    }
+
+    private void getComboboxClear( ComboBox<String> ... comboBoxes) {
+
+        for (ComboBox<String> comboBox : comboBoxes) {
+            comboBox.getSelectionModel().clearSelection();
+            comboBox.setValue(null);
+        }
+
+    }
+
+    private void getCheckClear(CheckBox... checkBoxes){
+
+        for (CheckBox checkBox : checkBoxes) {
+            checkBox.setSelected(false);
+        }
+
+    }
+
+
+    private Integer getPayId(String payname) {
+        return paymentdb.getAllList().stream()
+                .filter(payment->payment.getPaymethodname().equals(payname))
+                .map(Payment::getPayid)
+                .findFirst()
+                .orElse(null);
+    }
+
+    private Integer getWarrantyId(String warrantyname) {
+
+
+        return warrantydb.getAllList().stream()
+                .filter(warranty -> warranty.getWdesc().equals(warrantyname))
+                .map(Warranty::getWid)
+                .findFirst()
+                .orElse(null);
+
+
+    }
+
 
     private void getClear(){
         stockidtxt.setText("");
@@ -572,6 +708,16 @@ public class SaleController implements Initializable {
             }
         }
         return null;
+    }
+
+
+    private  String getOrderCode(){
+
+        String id= (orderdb.getAllList().isEmpty())?null: (orderdb.getAllList().getFirst().getOid());
+
+        return  getID("#O", id);
+
+
     }
 
 
