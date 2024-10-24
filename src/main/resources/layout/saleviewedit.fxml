@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="451.0" prefWidth="1174.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.saleorderoptions.SaleOrderController">
+   <children>
+      <AnchorPane layoutX="5.0" prefHeight="54.0" prefWidth="1168.0" style="-fx-background-color: #388CD2;">
+         <children>
+            <Label layoutX="-1.0" layoutY="9.0" prefHeight="36.0" prefWidth="1167.0" style="-fx-alignment: center;" text="အရောင်း ပြန်လည်ပြုပြင်ခြင်း စာမျက်နှာ" textFill="WHITE">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Pane layoutX="5.0" layoutY="54.0" prefHeight="43.0" prefWidth="1167.0" style="-fx-background-color: #FAFAFA;">
+         <children>
+            <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="12.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/calendar.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="datetxt" layoutX="55.0" layoutY="12.0" text="ပင်မစာမျက်နှာ">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="167.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/id.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="codetxt" layoutX="209.0" layoutY="14.0" text="Back to List">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="editbtn" focusTraversable="false" layoutX="955.0" layoutY="4.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="198.0" styleClass="button-22" stylesheets="@../css/animatebtn.css" text="ပြောင်းလဲ သတ်မှတ်မည်" textFill="WHITE">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="newItem" focusTraversable="false" layoutX="749.0" layoutY="4.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="198.0" styleClass="button-22" stylesheets="@../css/animatebtn.css" text="ပစ္စည်းအသစ် ထည့်မည်" textFill="WHITE">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Pane layoutX="6.0" layoutY="97.0" prefHeight="54.0" prefWidth="1167.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+            <Label fx:id="stocktotaltxt" layoutX="-4.0" layoutY="-3.0" prefHeight="60.0" prefWidth="1167.0" style="-fx-alignment: center;" text="စုစုပေါင်း" textFill="#0022ff">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <TableView fx:id="saletable" layoutX="6.0" layoutY="164.0" prefHeight="273.0" prefWidth="1168.0" style="-fx-border-color: #0078D7; -fx-background-color: #FFFFFF;" stylesheets="@../css/table2.css">
+         <columns>
+            <TableColumn fx:id="codeCol" prefWidth="147.0" text="ပစ္စည်းကုဒ်" />
+            <TableColumn fx:id="nameCol" prefWidth="324.0" text="ပစ္စည်းအမျိုးအမည်" />
+            <TableColumn fx:id="warrantyCol" prefWidth="128.0" text="အာမခံ" />
+            <TableColumn fx:id="qtyCol" prefWidth="92.0" text="အရေအတွက်" />
+            <TableColumn fx:id="priceCol2" prefWidth="257.0" text="ဈေးနှုန်း သတ်မှတ်ချက်">
+               <columns>
+                  <TableColumn fx:id="priceCol" prefWidth="100.0" text="ဈေးနှုန်း" />
+                  <TableColumn fx:id="discountCol" prefWidth="100.0" text="လျော့ဈေး" />
+               </columns>
+            </TableColumn>
+            <TableColumn fx:id="totalCol" prefWidth="143.0" text="စုစုပေါင်း" />
+            <TableColumn fx:id="iconCol" prefWidth="72.0" />
+            <TableColumn fx:id="icon2Col" prefWidth="57.0" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

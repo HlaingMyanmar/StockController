@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.Alerts.AlertBox;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,6 +43,11 @@ public class ApplicationViewController implements Initializable {
 
     @FXML
     private MenuItem warrantybtn;
+
+    @FXML
+    private MenuItem orderListbtn;
+
+
 
     @FXML
     private AnchorPane switchPane;
@@ -149,11 +155,36 @@ public class ApplicationViewController implements Initializable {
             stage.setScene(scene);
             stage.show();
 
+
+
         });
 
         purchaseListsbtn.setOnAction(event -> {
 
             FXMLLoader fxmlLoader2 = new FXMLLoader(ApplicationViewController.class.getResource("/layout/purchasedashboardview.fxml"));
+            Node node = null;
+
+            try {
+
+                node = fxmlLoader2.load();
+                switchPane.getChildren().clear();
+                switchPane.getChildren().add(node);
+
+
+
+            } catch (IOException e) {
+
+                throw new RuntimeException(e);
+            }
+
+
+
+
+        });
+
+        orderListbtn.setOnAction(event -> {
+
+            FXMLLoader fxmlLoader2 = new FXMLLoader(ApplicationViewController.class.getResource("/layout/saledashboardview.fxml"));
             Node node = null;
 
             try {

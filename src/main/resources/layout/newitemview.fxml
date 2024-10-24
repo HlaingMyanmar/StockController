@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.Newitemview">
+   <children>
+      <TextField fx:id="stockidtxt" layoutX="108.0" layoutY="68.0" prefHeight="30.0" prefWidth="136.0" promptText="ပစ္စည်းကုဒ် #">
+         <font>
+            <Font name="Pyidaungsu" size="12.0" />
+         </font>
+      </TextField>
+      <Label layoutX="26.0" layoutY="74.0" text="ပစ္စည်းကုဒ် #" textFill="#4527a0">
+         <font>
+            <Font name="Pyidaungsu Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="stocknametxt" layoutX="108.0" layoutY="119.0" prefHeight="32.0" prefWidth="430.0" promptText="အမျိုးအမည် #">
+         <font>
+            <Font name="Pyidaungsu" size="12.0" />
+         </font>
+      </TextField>
+      <Label layoutX="27.0" layoutY="125.0" text="အမျိုးအမည် #" textFill="#4527a0">
+         <font>
+            <Font name="Pyidaungsu Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="174.0" text="အရေအတွက် #" textFill="#4527a0">
+         <font>
+            <Font name="Pyidaungsu Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="stockqtytxt" layoutX="108.0" layoutY="168.0" prefHeight="32.0" prefWidth="51.0" promptText="အရေအတွက် #">
+         <font>
+            <Font name="Pyidaungsu" size="12.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="stockpricetxt" layoutX="222.0" layoutY="168.0" prefHeight="32.0" prefWidth="113.0" promptText="ဈေးနှုန်း #">
+         <font>
+            <Font name="Pyidaungsu" size="12.0" />
+         </font>
+      </TextField>
+      <Label layoutX="167.0" layoutY="174.0" text="ဈေးနှုန်း #" textFill="#4527a0">
+         <font>
+            <Font name="Pyidaungsu Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="stockdiscount" layoutX="404.0" layoutY="168.0" prefHeight="32.0" prefWidth="135.0" promptText="လျော့ဈေး #">
+         <font>
+            <Font name="Pyidaungsu" size="12.0" />
+         </font>
+      </TextField>
+      <ComboBox fx:id="stockwarranty" editable="true" layoutX="108.0" layoutY="219.0" prefHeight="30.0" prefWidth="165.0" promptText="အာမခံ #" />
+      <Label layoutX="341.0" layoutY="174.0" text="လျော့ဈေး #" textFill="#4527a0">
+         <font>
+            <Font name="Pyidaungsu Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="26.0" layoutY="224.0" text="အာမခံ #" textFill="#4527a0">
+         <font>
+            <Font name="Pyidaungsu Bold" size="12.0" />
+         </font>
+      </Label>
+      <JFXCheckBox fx:id="kbzchebox" layoutX="289.0" layoutY="228.0" text="KBZ Pay" />
+      <JFXCheckBox fx:id="wavechebox" layoutX="370.0" layoutY="228.0" text="Wave Pay" />
+      <JFXCheckBox fx:id="cashchebox" layoutX="467.0" layoutY="227.0" text="Cash" />
+   </children>
+</AnchorPane>

@@ -40,11 +40,11 @@ public class Orderdb implements DataAccessObject<Order> {
 
         String sql = """
                 
-                SELECT
+                 SELECT
                     o.oid,
                     o.odate,
                     o.cuname,
-                    w.wdesc ,
+                    p.paymethodname ,
                     SUM(sa.qty * sa.price) - SUM(sa.discount) AS amount,
                     o.remark
                 FROM
@@ -52,7 +52,7 @@ public class Orderdb implements DataAccessObject<Order> {
                 INNER JOIN
                     sale sa ON o.oid = sa.oid
                 INNER JOIN
-                    warranty w ON w.wid = sa.wid
+                  payment p  on p.payid = o.payid
                 GROUP BY
                     o.oid, o.odate, o.cuname,o.remark
                 ORDER BY
@@ -131,7 +131,7 @@ public class Orderdb implements DataAccessObject<Order> {
         orderDataView.setOid(rs.getString("oid"));
         orderDataView.setOdate(rs.getDate("odate"));
         orderDataView.setCuname(rs.getString("cuname"));
-        orderDataView.setWdesc(rs.getString("wdesc"));
+        orderDataView.setPaymethodname(rs.getString("paymethodname"));
         orderDataView.setTotal(rs.getInt("amount"));
         orderDataView.setRemarks(rs.getString("remark"));
 

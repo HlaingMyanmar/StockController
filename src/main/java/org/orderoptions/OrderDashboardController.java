@@ -5,12 +5,20 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import org.Alerts.AlertBox;
+import org.controllers.ApplicationViewController;
 import org.databases.Stockdb;
 import org.models.PurchaseList;
 import org.models.Stock;
@@ -20,6 +28,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.warrantyoptions.Warrantydb;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -70,10 +79,15 @@ public class OrderDashboardController implements Initializable {
     @FXML
     private TextField searchtxt;
 
+
     @FXML
-    private PieChart pipeChart;
+    private Button neworderbtn;
+
+
+
+
     @FXML
-    private LineChart<String, Number> lineChart;
+    private BarChart<String, Number> barChart;
 
 
     ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
@@ -137,6 +151,37 @@ public class OrderDashboardController implements Initializable {
 
     private void actionEvent() {
 
+        neworderbtn.setOnAction(event -> {
+
+            Stage stage = new Stage();
+
+
+
+            FXMLLoader fxmlLoader = new FXMLLoader(ApplicationViewController.class.getResource("/layout/saleview.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            stage.initStyle(StageStyle.UTILITY);
+            stage.initModality(Modality.WINDOW_MODAL);
+            Stage mainStage = (Stage) neworderbtn.getScene().getWindow();
+            stage.setTitle("ငအရောင်း စာမျက်နှာ");
+            stage.initOwner(mainStage);
+            stage.setScene(scene);
+            stage.show();
+
+            stage.setOnCloseRequest(closeEvent -> {
+
+
+                ini();
+
+            });
+
+
+        });
+
         dayPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
 
             List<OrderDataView> pList =orderdb.getViewList();
@@ -165,8 +210,8 @@ public class OrderDashboardController implements Initializable {
 
             getAmount(filteredData,lbTotal);
             getQtyItem(filteredData,lbCount);
-            createLineChart(filteredData);
-            createChart(filteredData);
+            createBarChart(filteredData);
+
 
 
 
@@ -198,8 +243,8 @@ public class OrderDashboardController implements Initializable {
             getAmount(filteredData,lbTotal);
             getQtyItem(filteredData,lbCount);
 
-            createLineChart(filteredData);
-            createChart(filteredData);
+            createBarChart(filteredData);
+
 
 
 
@@ -232,8 +277,8 @@ public class OrderDashboardController implements Initializable {
             getAmount(filteredData,lbTotal);
             getQtyItem(filteredData,lbCount);
 
-            createLineChart(filteredData);
-            createChart(filteredData);
+            createBarChart(filteredData);
+
 
 
         });
@@ -241,23 +286,44 @@ public class OrderDashboardController implements Initializable {
 
     }
 
-    private void createChart(ObservableList<OrderDataView> list) {
+//    private void createChart(ObservableList<OrderDataView> list) {
+//
+//        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+//
+//        list.stream()
+//                .collect(Collectors.groupingBy(
+//                        OrderDataView::getCuname,
+//                        Collectors.summingInt(OrderDataView::getTotal)))  // Summing up the 'total' field
+//                .forEach((category, total) -> {
+//                    pieChartData.add(new PieChart.Data(category+"\n"+total+" MMK", total));
+//                });
+//
+//        pipeChart.setData(pieChartData);
+//    }
 
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
-        list.stream()
-                .collect(Collectors.groupingBy(
-                        OrderDataView::getCuname,
-                        Collectors.summingInt(OrderDataView::getTotal)))  // Summing up the 'total' field
-                .forEach((category, total) -> {
-                    pieChartData.add(new PieChart.Data(category+"\n"+total+" MMK", total));
-                });
+//    private void createLineChart(ObservableList<OrderDataView> list) {
+//
+//
+//        XYChart.Series<String, Number> series = new XYChart.Series<>();
+//        series.setName("Order Summary");
+//
+//
+//        list.stream()
+//                .collect(Collectors.groupingBy(
+//                        OrderDataView::getCuname,
+//                        Collectors.summingInt(OrderDataView::getTotal)))
+//                .forEach((category, total) -> {
+//
+//                    series.getData().add(new XYChart.Data<>(category, total));
+//                });
+//
+//
+//        lineChart.getData().clear();
+//        lineChart.getData().add(series);
+//    }
 
-        pipeChart.setData(pieChartData);
-    }
-
-
-    private void createLineChart(ObservableList<OrderDataView> list) {
+    private void createBarChart(ObservableList<OrderDataView> list) {
 
 
         XYChart.Series<String, Number> series = new XYChart.Series<>();
@@ -274,9 +340,10 @@ public class OrderDashboardController implements Initializable {
                 });
 
 
-        lineChart.getData().clear();
-        lineChart.getData().add(series);
+        barChart.getData().clear();
+        barChart.getData().add(series);
     }
+
 
 
     private void tableIni() {
@@ -284,7 +351,7 @@ public class OrderDashboardController implements Initializable {
         orcodeCol.setCellValueFactory(new PropertyValueFactory<>("oid"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("odate"));
         cunameCol.setCellValueFactory(new PropertyValueFactory<>("cuname"));
-        paymethodNameCol.setCellValueFactory(new PropertyValueFactory<>("wdesc"));
+        paymethodNameCol.setCellValueFactory(new PropertyValueFactory<>("paymethodname"));
         totalCol.setCellValueFactory(new PropertyValueFactory<>("total"));
         noteCol.setCellValueFactory(new PropertyValueFactory<>("remarks"));
 
@@ -301,8 +368,8 @@ public class OrderDashboardController implements Initializable {
                 .filter(purchaseList -> purchaseList.getOdate().toLocalDate().equals(today))
                 .toList());
 
-        createLineChart(orderDataViews);
-        createChart(orderDataViews);
+        createBarChart(orderDataViews);
+
 
         return  orderDataViews;
 
@@ -337,7 +404,7 @@ public class OrderDashboardController implements Initializable {
                     return true;
                 } else if (stock.getCuname().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
-                } else if (stock.getWdesc().toLowerCase().contains(lowerCaseFilter)) {
+                } else if (stock.getPaymethodname().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 } else if (String.valueOf(stock.getTotal()).toLowerCase().contains(lowerCaseFilter)) {
                     return true;

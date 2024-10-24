@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="725.0" prefWidth="1297.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.controllers.ApplicationViewController">
+<AnchorPane prefHeight="725.0" prefWidth="1297.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.controllers.ApplicationViewController">
    <children>
       <MenuBar layoutY="2.0" prefHeight="40.0" prefWidth="1296.0" stylesheets="@../css/menusbar.css">
         <menus>
@@ -43,7 +43,7 @@
             <Menu mnemonicParsing="false" text="Sale">
                <items>
                   <MenuItem mnemonicParsing="false" text="Sale" />
-                  <MenuItem mnemonicParsing="false" text="Sale Lists" />
+                  <MenuItem fx:id="orderListbtn" mnemonicParsing="false" text="Order Lists" />
                   <MenuItem fx:id="showcategorybtn" mnemonicParsing="false" text="Category" />
                   <MenuItem fx:id="showbrandbtn" mnemonicParsing="false" text="Brand &amp; Company" />
                </items>

@@ -7,15 +7,15 @@ public class OrderDataView {
     private String oid;
     private Date odate;
     private String cuname;
-    private String wdesc;
+    private String paymethodname;
     private int total;
     private String remarks;
 
-    public OrderDataView(String oid, Date odate, String cuname, String wdesc, int total, String remarks) {
+    public OrderDataView(String oid, Date odate, String cuname, String paymethodname, int total, String remarks) {
         this.oid = oid;
         this.odate = odate;
         this.cuname = cuname;
-        this.wdesc = wdesc;
+        this.paymethodname = paymethodname;
         this.total = total;
         this.remarks = remarks;
     }
@@ -55,13 +55,12 @@ public class OrderDataView {
     }
 
 
-
-    public String getWdesc() {
-        return wdesc;
+    public String getPaymethodname() {
+        return paymethodname;
     }
 
-    public void setWdesc(String wdesc) {
-        this.wdesc = wdesc;
+    public void setPaymethodname(String paymethodname) {
+        this.paymethodname = paymethodname;
     }
 
     public int getTotal() {

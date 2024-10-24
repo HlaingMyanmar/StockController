@@ -1,0 +1,25 @@
+.button-22 {
+    -fx-alignment: center;
+    -fx-background-color: #0276FF;
+    -fx-background-radius: 8px;
+    -fx-border-style: none;
+    -fx-box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+    -fx-text-fill: #fff;
+    -fx-cursor: hand;
+    -fx-font-family: "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-line-height: 1.15;
+    -fx-padding: 10px 21px;
+    -fx-text-alignment: center;
+    -fx-transition: background-color 0.13s ease-in-out,
+    -fx-effect 0.13s ease-in-out,
+    -fx-opacity 0.13s ease-in-out;
+}
+
+.button-22:hover {
+    -fx-background-color: #1C84FF;
+}
+
+.button-22:pressed {
+    -fx-background-color: #006AE8;
+}
