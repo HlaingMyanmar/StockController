@@ -5,6 +5,7 @@ import org.models.Brand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -81,7 +82,13 @@ public class Orderdb implements DataAccessObject<Order> {
 
     @Override
     public int getDeleteById(String id) {
-        return 0;
+        String sql = "DELETE FROM `orderr` WHERE oid =:id";
+
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("id", id);
+
+
+        return jdbc.update(sql, parameters);
     }
 
     @Override

@@ -14,6 +14,7 @@ public interface DataAccessObject<T> {
 
     Brand getBrandById(String id,String name);
 
+    @Transactional
     int getDeleteById(String id);
 
     @Transactional()

@@ -160,11 +160,6 @@ public class SaleController implements Initializable {
         ocode.setText(getOrderCode());
 
 
-
-
-
-
-
     }
 
     private void conboxData() {

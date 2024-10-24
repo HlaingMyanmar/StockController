@@ -3,6 +3,7 @@ package org.saleoptions;
 import org.DAO.DataAccessObject;
 import org.models.Brand;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
@@ -38,7 +39,25 @@ public class Saledb implements DataAccessObject<Sale> {
 
     @Override
     public int getDeleteById(String id) {
+
+        String sql = "DELETE FROM `sale`  WHERE oid =' ' AND stockcode = '' ";
+
+
+
         return 0;
+    }
+
+    public int getDeleteById(String orderid,String stockcode) {
+
+        String sql = "DELETE FROM `sale`  WHERE oid =:orderid AND stockcode =:stockcode";
+
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("orderid", orderid);
+        parameters.addValue("stockcode", stockcode);
+
+        return jdbc.update(sql, parameters);
+
+
     }
 
     @Override
@@ -48,6 +67,8 @@ public class Saledb implements DataAccessObject<Sale> {
 
         return 0;
     }
+
+
 
     @Override
     public int update(Sale sale) {

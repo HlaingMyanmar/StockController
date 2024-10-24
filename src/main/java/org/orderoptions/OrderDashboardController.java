@@ -84,6 +84,10 @@ public class OrderDashboardController implements Initializable {
     private Button neworderbtn;
 
 
+    public static  String __oid= null;
+    public static  Date __odate= null;
+
+
 
 
     @FXML
@@ -151,6 +155,56 @@ public class OrderDashboardController implements Initializable {
 
     private void actionEvent() {
 
+
+
+        ordertable.setOnMouseClicked(event -> {
+
+
+
+            if(event.getClickCount()==2){
+
+
+                OrderDataView orderDataView = (OrderDataView) ordertable.getSelectionModel().getSelectedItem();
+
+
+                __oid =orderDataView.getOid();
+                __odate = orderDataView.getOdate();
+
+
+                Stage stage = new Stage();
+
+
+
+                FXMLLoader fxmlLoader = new FXMLLoader(ApplicationViewController.class.getResource("/layout/saleviewedit.fxml"));
+                Scene scene = null;
+                try {
+                    scene = new Scene(fxmlLoader.load());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stage.initStyle(StageStyle.UTILITY);
+                stage.initModality(Modality.WINDOW_MODAL);
+                Stage mainStage = (Stage) neworderbtn.getScene().getWindow();
+                stage.setTitle("အရောင်း ပြုပြင်ခြင်း စာမျက်နှာ");
+                stage.initOwner(mainStage);
+                stage.setScene(scene);
+                stage.show();
+
+                stage.setOnCloseRequest(closeEvent -> {
+
+
+                    ini();
+
+                });
+
+
+
+            }
+
+
+
+        });
+
         neworderbtn.setOnAction(event -> {
 
             Stage stage = new Stage();
@@ -167,7 +221,7 @@ public class OrderDashboardController implements Initializable {
             stage.initStyle(StageStyle.UTILITY);
             stage.initModality(Modality.WINDOW_MODAL);
             Stage mainStage = (Stage) neworderbtn.getScene().getWindow();
-            stage.setTitle("ငအရောင်း စာမျက်နှာ");
+            stage.setTitle("အရောင်း စာမျက်နှာ");
             stage.initOwner(mainStage);
             stage.setScene(scene);
             stage.show();

@@ -84,6 +84,17 @@ public class Paymentdb implements DataAccessObject<Payment> {
 
     }
 
+    @Transactional
+    public int subAmount(Payment payment) {
+
+        String sql = "UPDATE payment SET total = total - :total WHERE payid = :payid";
+
+        BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(payment);
+
+        return jdbc.update(sql,param );
+
+    }
+
     @Override
     public int[] updateBatch(List<Payment> t) {
         return new int[0];
