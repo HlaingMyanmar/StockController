@@ -523,7 +523,6 @@ public class SaleController implements Initializable {
                         finalSaleList.clear();
 
 
-
                     }
 
 

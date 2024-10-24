@@ -174,6 +174,8 @@ public class ApplicationViewController implements Initializable {
 
         });
 
+
+
         showsupplierbtn.setOnAction(event -> {
 
             FXMLLoader fxmlLoader2 = new FXMLLoader(ApplicationViewController.class.getResource("/layout/supplierview.fxml"));

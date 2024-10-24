@@ -3,6 +3,7 @@ package org.orderoptions;
 import org.DAO.DataAccessObject;
 import org.models.Brand;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -33,6 +34,39 @@ public class Orderdb implements DataAccessObject<Order> {
 
         return jdbc.query(" SELECT * FROM `orderr` order BY odate desc,cast(Substring(oid,13) as Unsigned)desc ", (rs, rowNum) ->getOrder(rs));
     }
+
+    public List<OrderDataView> getViewList(){
+
+
+        String sql = """
+                
+                SELECT
+                    o.oid,
+                    o.odate,
+                    o.cuname,
+                    w.wdesc ,
+                    SUM(sa.qty * sa.price) - SUM(sa.discount) AS amount,
+                    o.remark
+                FROM
+                    orderr o
+                INNER JOIN
+                    sale sa ON o.oid = sa.oid
+                INNER JOIN
+                    warranty w ON w.wid = sa.wid
+                GROUP BY
+                    o.oid, o.odate, o.cuname,o.remark
+                ORDER BY
+                    CAST(SUBSTRING(o.oid, 13) AS UNSIGNED) DESC;
+                
+                
+
+                
+                """;
+
+        return jdbc.query(sql, (rs, rowNum) ->getDataView(rs));
+
+    }
+
 
     @Override
     public Brand getBrandById(String id, String name) {
@@ -86,6 +120,22 @@ public class Orderdb implements DataAccessObject<Order> {
         order.setPayid(rs.getInt("payid"));
 
         return order;
+
+
+    }
+
+    public OrderDataView getDataView(ResultSet rs) throws SQLException {
+
+        OrderDataView orderDataView = new OrderDataView();
+
+        orderDataView.setOid(rs.getString("oid"));
+        orderDataView.setOdate(rs.getDate("odate"));
+        orderDataView.setCuname(rs.getString("cuname"));
+        orderDataView.setWdesc(rs.getString("wdesc"));
+        orderDataView.setTotal(rs.getInt("amount"));
+        orderDataView.setRemarks(rs.getString("remark"));
+
+        return orderDataView;
 
 
     }
