@@ -68,6 +68,11 @@ public class Stock {
 
     }
 
+    public Stock(String stockcode, String stockname, int qty) {
+        this.stockcode = stockcode;
+        this.stockname = stockname;
+        this.qty = qty;
+    }
 
     public Stock(String stockcode, int price) {
         this.stockcode = stockcode;

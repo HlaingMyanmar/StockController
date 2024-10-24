@@ -170,7 +170,7 @@ public class SaleOrderController implements Initializable {
                     SaleServices saleServices = new SaleServices();
                     saleServices.deleteSaleAndUpdatePayment(__oid, saleOrder);
 
-                    AlertBox.showInformation("အောင်မြင်သည်။","အောင်မြင်သည်။");
+                    AlertBox.showInformation("အရောင်း ပြန်လည်ပြုပြင်ခြင်း စာမျက်နှာ","အောင်မြင်သည်။");
 
 
                 }catch (Exception e) {
@@ -204,6 +204,7 @@ public class SaleOrderController implements Initializable {
     private void correcttableIcon() {
 
         Callback<TableColumn<SaleOrder, String>, TableCell<SaleOrder, String>> cellFactory = (event) -> new TableCell<>() {
+
             private final Button editButton = new Button();
 
             private final Image editImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/image/correct.png")));
