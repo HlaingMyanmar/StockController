@@ -1,13 +1,19 @@
 package org.saleorderoptions;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import org.Alerts.AlertBox;
+import org.controllers.ApplicationViewController;
 import org.models.PurchaseList;
 import org.orderoptions.Orderdb;
 import org.paymentoptions.Payment;
@@ -18,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -83,6 +90,8 @@ public class SaleOrderController implements Initializable {
     Orderdb orderdb  = context.getBean("orderdb",Orderdb.class);
 
     Paymentdb paymentdb  = context.getBean("paymentdb",Paymentdb.class);
+
+    public static SaleOrder __saleOrder = null;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -226,8 +235,36 @@ public class SaleOrderController implements Initializable {
 
                     SaleOrder saleOrder = getTableView().getItems().get(getIndex());
 
-                    System.out.println("Editing: " + saleOrder);
+                    __saleOrder=saleOrder;
+
+
+                    Stage stage = new Stage();
+
+                    FXMLLoader fxmlLoader = new FXMLLoader(ApplicationViewController.class.getResource("/layout/saleordereditview.fxml"));
+                    Scene scene = null;
+                    try {
+                        scene = new Scene(fxmlLoader.load());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    stage.initStyle(StageStyle.UTILITY);
+                    stage.initModality(Modality.WINDOW_MODAL);
+                    Stage mainStage = (Stage) editbtn.getScene().getWindow();
+                    stage.setTitle("ငွေပေး‌ချေခြင်းပုံစံ");
+                    stage.initOwner(mainStage);
+                    stage.setScene(scene);
+                    stage.show();
+
+                    stage.setOnCloseRequest(closeEvent -> {
+
+
+                        ini();
+
+                    });
+
                 });
+
+
             }
 
             @Override

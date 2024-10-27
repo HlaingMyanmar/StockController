@@ -72,7 +72,19 @@ public class Saledb implements DataAccessObject<Sale> {
 
     @Override
     public int update(Sale sale) {
-        return 0;
+
+
+        String sql = "UPDATE `sale` SET `wid`=:wid,`qty`=:qty,`price`=:price,`discount`=:discount WHERE `stockcode`=:stockcode  AND `oid` = :oid";
+
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("wid", sale.getWid());
+        parameters.addValue("qty", sale.getQty());
+        parameters.addValue("price", sale.getPrice());
+        parameters.addValue("discount", sale.getDiscount());
+        parameters.addValue("stockcode", sale.getStockcode());
+        parameters.addValue("oid", sale.getOid());
+
+        return jdbc.update(sql, parameters);
     }
 
     @Override

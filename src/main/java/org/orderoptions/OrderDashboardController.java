@@ -9,19 +9,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.Alerts.AlertBox;
 import org.controllers.ApplicationViewController;
 import org.databases.Stockdb;
-import org.models.PurchaseList;
-import org.models.Stock;
 import org.paymentoptions.Paymentdb;
 import org.saleoptions.Saledb;
 import org.springframework.context.ApplicationContext;
@@ -175,7 +170,7 @@ public class OrderDashboardController implements Initializable {
 
 
 
-                FXMLLoader fxmlLoader = new FXMLLoader(ApplicationViewController.class.getResource("/layout/saleviewedit.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(ApplicationViewController.class.getResource("/layout/saleorderview.fxml"));
                 Scene scene = null;
                 try {
                     scene = new Scene(fxmlLoader.load());

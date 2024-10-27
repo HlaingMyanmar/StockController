@@ -9,6 +9,8 @@ public class Sale {
     private int price;
     private int discount;
 
+    private int total;
+
 
     public Sale(){}
 
@@ -20,6 +22,24 @@ public class Sale {
         this.qty = qty;
         this.price = price;
         this.discount = discount;
+    }
+
+    public Sale(String stockcode, String oid, int wid, int qty, int price, int discount, int total) {
+        this.stockcode = stockcode;
+        this.oid = oid;
+        this.wid = wid;
+        this.qty = qty;
+        this.price = price;
+        this.discount = discount;
+        this.total = qty*price;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
     }
 
     public String getStockcode() {

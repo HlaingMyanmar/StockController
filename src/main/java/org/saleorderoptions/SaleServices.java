@@ -5,6 +5,7 @@ import org.models.Stock;
 import org.orderoptions.Orderdb;
 import org.paymentoptions.Payment;
 import org.paymentoptions.Paymentdb;
+import org.saleoptions.Sale;
 import org.saleoptions.Saledb;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -35,5 +36,42 @@ public class SaleServices {
         paymentdb.subAmount(new Payment(saleOrder.getPayid(), saleOrder.getTotal()));
         stockdb.sumQty(new Stock(saleOrder.getStockcode(),saleOrder.getStockname(),saleOrder.getQty()));
     }
+
+    @Transactional
+
+    public void updateSaleAndUpdatePayment(Sale sale, int qtyOldValue, int priceOldValue, int discountOldValue, Payment payment) {
+
+        saledb.update(sale);
+        adjustStockQuantity(sale, qtyOldValue);
+        adjustPaymentAmount(sale, qtyOldValue, priceOldValue, discountOldValue, payment);
+    }
+
+
+    private void adjustStockQuantity(Sale sale, int oldQty) {
+
+        int qtyDifference = sale.getQty() - oldQty;
+        if (qtyDifference > 0) {
+            stockdb.sumQty(new Stock(sale.getStockcode(), sale.getStockcode(), qtyDifference));
+        } else if (qtyDifference < 0) {
+            stockdb.subQty(new Stock(sale.getStockcode(), sale.getStockcode(), -qtyDifference));
+        }
+    }
+
+    private void adjustPaymentAmount(Sale sale, int oldQty, int oldPrice, int oldDiscount, Payment payment) {
+
+        int oldTotalPrice = (oldQty * oldPrice) - oldDiscount;
+
+        int newTotalPrice = (sale.getQty() * sale.getPrice()) - sale.getDiscount();
+
+        int priceDifference = newTotalPrice - oldTotalPrice;
+
+        if (priceDifference > 0) {
+            paymentdb.sumAmount(new Payment(payment.getPayid(), priceDifference));
+        } else if (priceDifference < 0) {
+            paymentdb.subAmount(new Payment(payment.getPayid(), -priceDifference));
+        }
+    }
+
+
 
 }
