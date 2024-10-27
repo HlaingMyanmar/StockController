@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -8,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="317.0" prefWidth="539.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.saleorderoptions.NewItemViewController">
+<AnchorPane prefHeight="258.0" prefWidth="539.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.saleorderoptions.NewItemViewController">
    <children>
       <TextField fx:id="stockidtxt" layoutX="96.0" layoutY="21.0" prefHeight="30.0" prefWidth="136.0" promptText="ပစ္စည်းကုဒ် #">
          <font>
@@ -66,10 +65,7 @@
             <Font name="Pyidaungsu Bold" size="12.0" />
          </font>
       </Label>
-      <JFXCheckBox fx:id="kbzchebox" layoutX="14.0" layoutY="212.0" text="KBZ Pay" />
-      <JFXCheckBox fx:id="wavechebox" layoutX="129.0" layoutY="212.0" text="Wave Pay" />
-      <JFXCheckBox fx:id="cashchebox" layoutX="263.0" layoutY="212.0" text="Cash" />
-      <Button fx:id="newItem" focusTraversable="false" layoutX="14.0" layoutY="262.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="511.0" styleClass="button-22" stylesheets="@../css/animatebtn.css" text="ပစ္စည်းအသစ် ထည့်မည်" textFill="WHITE">
+      <Button fx:id="newItem" focusTraversable="false" layoutX="14.0" layoutY="208.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="511.0" styleClass="button-22" stylesheets="@../css/animatebtn.css" text="ပစ္စည်းအသစ် ထည့်မည်" textFill="WHITE">
          <font>
             <Font name="Pyidaungsu Bold" size="12.0" />
          </font>

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -11,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="451.0" prefWidth="1174.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.saleorderoptions.SaleOrderController">
+<AnchorPane prefHeight="493.0" prefWidth="1174.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.saleorderoptions.SaleOrderController">
    <children>
       <AnchorPane layoutX="5.0" prefHeight="54.0" prefWidth="1168.0" style="-fx-background-color: #388CD2;">
          <children>
@@ -22,7 +24,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <Pane layoutX="5.0" layoutY="54.0" prefHeight="43.0" prefWidth="1167.0" style="-fx-background-color: #FAFAFA;">
+      <Pane layoutX="5.0" layoutY="54.0" prefHeight="43.0" prefWidth="757.0" style="-fx-background-color: #FAFAFA;">
          <children>
             <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="12.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -44,61 +46,65 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Button fx:id="editbtn" focusTraversable="false" layoutX="955.0" layoutY="4.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="198.0" styleClass="button-22" stylesheets="@../css/animatebtn.css" text="ပြောင်းလဲ သတ်မှတ်မည်" textFill="WHITE">
-               <font>
-                  <Font name="Pyidaungsu Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="newItem" focusTraversable="false" layoutX="749.0" layoutY="4.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="198.0" styleClass="button-22" stylesheets="@../css/animatebtn.css" text="ပစ္စည်းအသစ် ထည့်မည်" textFill="WHITE">
-               <font>
-                  <Font name="Pyidaungsu Bold" size="12.0" />
-               </font>
-            </Button>
-            <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="312.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../image/purchase.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="514.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../image/phone.png" />
-               </image>
-            </ImageView>
-            <TextField fx:id="cutxt" layoutX="349.0" layoutY="5.0" prefHeight="32.0" prefWidth="157.0" promptText="နာမည်">
-               <font>
-                  <Font name="Pyidaungsu" size="12.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="cuphone" layoutX="547.0" layoutY="6.0" prefHeight="32.0" prefWidth="157.0" promptText="ဖုန်းနံပါတ်">
-               <font>
-                  <Font name="Pyidaungsu" size="12.0" />
-               </font>
-            </TextField>
          </children>
       </Pane>
-      <Pane layoutX="6.0" layoutY="97.0" prefHeight="54.0" prefWidth="1167.0" style="-fx-background-color: #FFFFFF;">
+      <Pane layoutX="768.0" layoutY="57.0" prefHeight="169.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #388CD2; -fx-background-radius: 20; -fx-border-radius: 20;">
          <children>
-            <Label fx:id="stocktotaltxt" layoutX="-4.0" layoutY="-3.0" prefHeight="60.0" prefWidth="1167.0" style="-fx-alignment: center;" text="စုစုပေါင်း" textFill="#0022ff">
+            <Label fx:id="stocktotaltxt" prefHeight="169.0" prefWidth="400.0" style="-fx-alignment: center;" text="စုစုပေါင်း" textFill="#0022ff">
                <font>
                   <Font name="Pyidaungsu Bold" size="20.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <TableView fx:id="saletable" layoutX="6.0" layoutY="176.0" prefHeight="273.0" prefWidth="1137.0" style="-fx-border-color: #0078D7; -fx-background-color: #FFFFFF;" stylesheets="@../css/table2.css">
+      <TableView fx:id="saletable" layoutX="6.0" layoutY="239.0" prefHeight="243.0" prefWidth="1168.0" style="-fx-border-color: #0078D7; -fx-background-color: #FFFFFF;" stylesheets="@../css/table2.css">
          <columns>
-            <TableColumn fx:id="codeCol" prefWidth="147.0" text="ပစ္စည်းကုဒ်" />
-            <TableColumn fx:id="nameCol" prefWidth="295.0" text="ပစ္စည်းအမျိုးအမည်" />
-            <TableColumn fx:id="warrantyCol" prefWidth="113.0" text="အာမခံ" />
-            <TableColumn fx:id="qtyCol" prefWidth="94.0" text="အရေအတွက်" />
-            <TableColumn prefWidth="224.0" text="ဈေးနှုန်း သတ်မှတ်ချက်">
+            <TableColumn fx:id="codeCol" prefWidth="168.0" text="ပစ္စည်းကုဒ်" />
+            <TableColumn fx:id="nameCol" prefWidth="256.0" text="ပစ္စည်းအမျိုးအမည်" />
+            <TableColumn fx:id="warrantyCol" prefWidth="150.0" text="အာမခံ" />
+            <TableColumn fx:id="qtyCol" prefWidth="99.0" text="အရေအတွက်" />
+            <TableColumn prefWidth="138.0" text="ဈေးနှုန်း သတ်မှတ်ချက်">
                <columns>
                   <TableColumn fx:id="priceCol" prefWidth="100.0" text="ဈေးနှုန်း" />
                   <TableColumn fx:id="discountCol" prefWidth="100.0" text="လျော့ဈေး" />
                </columns>
             </TableColumn>
-            <TableColumn fx:id="totalCol" prefWidth="135.0" text="စုစုပေါင်း" />
+            <TableColumn fx:id="totalCol" prefWidth="140.0" text="စုစုပေါင်း" />
          </columns>
       </TableView>
+      <JFXCheckBox fx:id="kbzchebox" layoutX="309.0" layoutY="106.0" text="KBZ Pay" />
+      <JFXCheckBox fx:id="wavechebox" layoutX="395.0" layoutY="106.0" text="Wave Pay" />
+      <JFXCheckBox fx:id="cashchebox" layoutX="493.0" layoutY="106.0" text="Cash" />
+      <TextArea fx:id="curemark" layoutX="302.0" layoutY="131.0" prefHeight="81.0" prefWidth="251.0" />
+      <Button fx:id="newItem" focusTraversable="false" layoutX="578.0" layoutY="116.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="184.0" styleClass="button-22" stylesheets="@../css/animatebtn.css" text="ပစ္စည်းအသစ် ထည့်မည်" textFill="WHITE">
+         <font>
+            <Font name="Pyidaungsu Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="editbtn" focusTraversable="false" layoutX="578.0" layoutY="175.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="184.0" styleClass="button-22" stylesheets="@../css/animatebtn.css" text="ပြောင်းလဲ သတ်မှတ်မည်" textFill="WHITE">
+         <font>
+            <Font name="Pyidaungsu Bold" size="12.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="14.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/purchase.jpg" />
+         </image>
+      </ImageView>
+      <TextField fx:id="cutxt" layoutX="52.0" layoutY="112.0" prefHeight="32.0" prefWidth="191.0" promptText="နာမည်">
+         <font>
+            <Font name="Pyidaungsu" size="12.0" />
+         </font>
+      </TextField>
+      <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="12.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/phone.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="cuphone" layoutX="53.0" layoutY="176.0" prefHeight="32.0" prefWidth="191.0" promptText="ဖုန်းနံပါတ်">
+         <font>
+            <Font name="Pyidaungsu" size="12.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>

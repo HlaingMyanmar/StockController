@@ -2,6 +2,7 @@ package org.saleorderoptions;
 
 import org.databases.Stockdb;
 import org.models.Stock;
+import org.orderoptions.Order;
 import org.orderoptions.Orderdb;
 import org.paymentoptions.Payment;
 import org.paymentoptions.Paymentdb;
@@ -46,6 +47,29 @@ public class SaleServices {
 
         return 1;
     }
+
+    @Transactional
+    public int updateOrderAndUpdatePaymentMethod(Order order,int oldPaymentID,int oldAmount) {
+
+
+        orderdb.update(order);
+
+        adjuctPaymentAmounts(oldPaymentID,order.getPayid(),oldAmount);
+
+     return 1;
+
+    }
+
+    @Transactional
+    public void adjuctPaymentAmounts(int oldPaymentID,int newPaymentID,int amount){
+
+
+        paymentdb.subAmount(new Payment(oldPaymentID, amount));
+
+        paymentdb.sumAmount(new Payment(newPaymentID, amount));
+
+    }
+
 
 
     private void adjustStockQuantity(Sale sale, int oldQty) {

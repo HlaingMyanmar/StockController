@@ -104,7 +104,14 @@ public class Orderdb implements DataAccessObject<Order> {
 
     @Override
     public int update(Order order) {
-        return 0;
+
+
+        String sql = "UPDATE `orderr` SET `cuname`=:cuname,`cuphone`=:cuphone,`remark`=:remark,`payid`=:payid WHERE  `oid`=:oid";
+
+
+        BeanPropertySqlParameterSource parma = new BeanPropertySqlParameterSource(order);
+
+        return jdbc.update(sql,parma);
     }
 
     @Override
@@ -124,6 +131,7 @@ public class Orderdb implements DataAccessObject<Order> {
         order.setOdate(rs.getDate("odate"));
         order.setCuname(rs.getString("cuname"));
         order.setCuphone(rs.getString("cuphone"));
+        order.setRemark(rs.getString("remark"));
         order.setPayid(rs.getInt("payid"));
 
         return order;
