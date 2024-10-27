@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -53,6 +54,26 @@
                   <Font name="Pyidaungsu Bold" size="12.0" />
                </font>
             </Button>
+            <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="312.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/purchase.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="514.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/phone.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="cutxt" layoutX="349.0" layoutY="5.0" prefHeight="32.0" prefWidth="157.0" promptText="နာမည်">
+               <font>
+                  <Font name="Pyidaungsu" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="cuphone" layoutX="547.0" layoutY="6.0" prefHeight="32.0" prefWidth="157.0" promptText="ဖုန်းနံပါတ်">
+               <font>
+                  <Font name="Pyidaungsu" size="12.0" />
+               </font>
+            </TextField>
          </children>
       </Pane>
       <Pane layoutX="6.0" layoutY="97.0" prefHeight="54.0" prefWidth="1167.0" style="-fx-background-color: #FFFFFF;">
@@ -64,7 +85,7 @@
             </Label>
          </children>
       </Pane>
-      <TableView fx:id="saletable" layoutX="6.0" layoutY="164.0" prefHeight="273.0" prefWidth="1137.0" style="-fx-border-color: #0078D7; -fx-background-color: #FFFFFF;" stylesheets="@../css/table2.css">
+      <TableView fx:id="saletable" layoutX="6.0" layoutY="176.0" prefHeight="273.0" prefWidth="1137.0" style="-fx-border-color: #0078D7; -fx-background-color: #FFFFFF;" stylesheets="@../css/table2.css">
          <columns>
             <TableColumn fx:id="codeCol" prefWidth="147.0" text="ပစ္စည်းကုဒ်" />
             <TableColumn fx:id="nameCol" prefWidth="295.0" text="ပစ္စည်းအမျိုးအမည်" />

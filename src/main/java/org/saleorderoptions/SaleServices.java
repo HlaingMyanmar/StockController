@@ -38,12 +38,13 @@ public class SaleServices {
     }
 
     @Transactional
-
-    public void updateSaleAndUpdatePayment(Sale sale, int qtyOldValue, int priceOldValue, int discountOldValue, Payment payment) {
+    public int updateSaleAndUpdatePayment(Sale sale, int qtyOldValue, int priceOldValue, int discountOldValue, Payment payment) {
 
         saledb.update(sale);
         adjustStockQuantity(sale, qtyOldValue);
         adjustPaymentAmount(sale, qtyOldValue, priceOldValue, discountOldValue, payment);
+
+        return 1;
     }
 
 

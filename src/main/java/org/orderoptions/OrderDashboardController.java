@@ -85,6 +85,7 @@ public class OrderDashboardController implements Initializable {
 
 
 
+
     @FXML
     private BarChart<String, Number> barChart;
 
@@ -163,7 +164,6 @@ public class OrderDashboardController implements Initializable {
 
 
                 __oid =orderDataView.getOid();
-                __odate = orderDataView.getOdate();
 
 
                 Stage stage = new Stage();

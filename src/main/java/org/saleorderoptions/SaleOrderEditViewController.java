@@ -7,6 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import org.Alerts.AlertBox;
 import org.databases.Stockdb;
 import org.orderoptions.OrderDataView;
 import org.orderoptions.Orderdb;
@@ -75,13 +77,27 @@ public class SaleOrderEditViewController implements Initializable {
 
         newItem.setOnAction(event -> {
 
-            Sale sale = new Sale(saleOrder.getStockcode(),__oid,getWarrantyId(stockwarranty.getValue()),Integer.parseInt(stockqtytxt.getText()),Integer.parseInt(stockpricetxt.getText()),Integer.parseInt(stockdiscount.getText()));
+            try {
+
+                Sale sale = new Sale(saleOrder.getStockcode(), __oid, getWarrantyId(stockwarranty.getValue()), Integer.parseInt(stockqtytxt.getText()), Integer.parseInt(stockpricetxt.getText()), Integer.parseInt(stockdiscount.getText()));
 
 
-            Payment payment = new Payment(saleOrder.getPayid(),sale.getTotal());
-            new SaleServices().updateSaleAndUpdatePayment(sale,saleOrder.getQty(),saleOrder.getPrice(),saleOrder.getDiscount(),payment);
+                Payment payment = new Payment(saleOrder.getPayid(), sale.getTotal());
+                int i =new SaleServices().updateSaleAndUpdatePayment(sale, saleOrder.getQty(), saleOrder.getPrice(), saleOrder.getDiscount(), payment);
+
+                if(i==1){
+
+                    AlertBox.showInformation("အရောင်းစာမျက်နှာ","ပြင်ဆင်ခြင်း အောင်မြင်ပါသည်။");
 
 
+                }
+
+
+            }catch (Exception e) {
+
+                AlertBox.showError("အရောင်းစာမျက်နှာ","မှားယွင်းနေပါသည်။");
+
+            }
 
         });
 

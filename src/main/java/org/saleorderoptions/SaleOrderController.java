@@ -15,6 +15,7 @@ import javafx.util.Callback;
 import org.Alerts.AlertBox;
 import org.controllers.ApplicationViewController;
 import org.models.PurchaseList;
+import org.orderoptions.Order;
 import org.orderoptions.Orderdb;
 import org.paymentoptions.Payment;
 import org.paymentoptions.Paymentdb;
@@ -29,8 +30,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-import static org.orderoptions.OrderDashboardController.__odate;
-import static org.orderoptions.OrderDashboardController.__oid;
+import static org.orderoptions.OrderDashboardController.*;
 
 public class SaleOrderController implements Initializable {
 
@@ -77,6 +77,12 @@ public class SaleOrderController implements Initializable {
 
     @FXML
     private TableColumn<SaleOrder, String> warrantyCol;
+
+    @FXML
+    private TextField cuphone;
+
+    @FXML
+    private TextField cutxt;
 
 
 
@@ -135,8 +141,19 @@ public class SaleOrderController implements Initializable {
 
     private void ini() {
 
+
+        Order orderr = orderdb.getAllList().stream()
+                        .filter(order -> order.getOid().equals(__oid))
+                        .findFirst().orElse(null);
+
         codetxt.setText(__oid);
-        datetxt.setText(String.valueOf(__odate));
+        assert orderr != null;
+        datetxt.setText(String.valueOf(orderr.getOdate()));
+        cuphone.setText(orderr.getCuphone());
+        cutxt.setText(orderr.getCuname());
+
+
+
 
         deletetableIcon();
 
