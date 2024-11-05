@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -15,7 +16,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.Alerts.AlertBox;
 import org.databases.Stockdb;
 import org.datalistgenerator.StockGenerate;
@@ -24,6 +27,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -229,86 +233,39 @@ public class StockViewController extends StockGenerate implements Initializable 
 
                 Stock stock = (Stock)  stocktable.getSelectionModel().getSelectedItem();
 
-                stock.getStockcode();
-
-                class GUI extends Application {
+                _stockcode= stock.getStockcode();
 
 
-                    @Override
-                    public void start(Stage stage) throws Exception {
-
-                        TextField stockprice = new TextField();
-                        stockprice.setPromptText("ဈေးနှုန်းသတ်မှတ်ပါ။");
-
-                        Button button = new Button("သေချာသည်။");
-
-                        VBox box = new VBox();
-                        box.getChildren().addAll(stockprice,button);
-                        Insets insets = new Insets(20, 10, 20, 10);
-                        box.setPadding(insets);
-                        box.setSpacing(20);
-
-                        Scene scene = new Scene(box,250,100);
-
-                        stage.setScene(scene);
-
-                        stage.setTitle("ဈေးနှုန်းသတ်မှတ်ခြင်း");
-                        stage.show();
-
-                        button.setOnAction(event -> {
-
-
-                            try {
-
-                                int price = Integer.parseInt(stockprice.getText());
-
-                                if(dao.setPrice(new Stock(stock.getStockcode(),price))==1){
-
-                                    AlertBox.showInformation("ပစ္စည်းစာရင်းများ", "ဈေးနှုန်းသတ်မှတ်ခြင်း အောင်မြင်သည်။");
-
-                                }
-
-                            }catch (NumberFormatException e ){
-
-                                AlertBox.showError("ပစ္စည်းစာရင်းများ", "ဈေးနှုန်းသတ်မှတ်ပါ။");
-
-
-                            }
+                Stage stage = new Stage();
 
 
 
-
-                        });
-
-
-
-                        stage.setOnCloseRequest(event1 -> {
-
-
-
-                            ini();
-
-
-                        });
-
-
-                    }
-
-                }
-
-
-                GUI gui = new GUI();
+                FXMLLoader fxmlLoader = new FXMLLoader(ApplicationViewController.class.getResource("/layout/stockSetPriceview.fxml"));
+                Scene scene = null;
                 try {
-
-
-                    gui.start(new Stage());
-
-
-                } catch (Exception e) {
-
-
+                    scene = new Scene(fxmlLoader.load());
+                } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+                stage.initStyle(StageStyle.UTILITY);
+                stage.initModality(Modality.WINDOW_MODAL);
+                Stage mainStage = (Stage) stocktable.getScene().getWindow();
+                stage.setTitle("Category");
+                stage.initOwner(mainStage);
+                stage.setScene(scene);
+                stage.show();
+
+
+                stage.setOnCloseRequest(event1 -> {
+
+                    ini();
+
+                });
+
+
+
+
+
 
 
             }catch (NullPointerException e){
