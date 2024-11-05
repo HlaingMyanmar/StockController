@@ -32,6 +32,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import static org.Generator.Currency.convertToMyanmarCurrency;
+import static org.controllers.StockViewController._stockcode;
 
 public class OrderDashboardController implements Initializable {
 

@@ -215,7 +215,6 @@ public class SaleOrderController implements Initializable {
             stage.show();
 
 
-
             stage.setOnCloseRequest(closeEvent -> {
 
 
@@ -335,9 +334,20 @@ public class SaleOrderController implements Initializable {
 
 
                     SaleServices saleServices = new SaleServices();
-                    saleServices.deleteSaleAndUpdatePayment(__oid, saleOrder);
 
-                    AlertBox.showInformation("အရောင်း ပြန်လည်ပြုပြင်ခြင်း စာမျက်နှာ","အောင်မြင်သည်။");
+
+                    if(saleServices.deleteSaleAndUpdatePayment(__oid, saleOrder, saletable)==1){
+
+
+                        AlertBox.showInformation("အရောင်း ပြန်လည်ပြုပြင်ခြင်း စာမျက်နှာ","အောင်မြင်သည်။");
+
+                        ini();
+
+
+
+                    };
+
+
 
 
                 }catch (Exception e) {

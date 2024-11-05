@@ -174,15 +174,6 @@ public class SaleController implements Initializable {
         stockwarranty.setItems(list);
 
 
-
-
-
-
-
-
-
-
-
     }
 
     private void keyRelease(TextField stockpricetxt) {

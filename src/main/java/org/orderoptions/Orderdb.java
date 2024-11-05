@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -81,7 +82,9 @@ public class Orderdb implements DataAccessObject<Order> {
     }
 
     @Override
+    @Transactional
     public int getDeleteById(String id) {
+
         String sql = "DELETE FROM `orderr` WHERE oid =:id";
 
         MapSqlParameterSource parameters = new MapSqlParameterSource();

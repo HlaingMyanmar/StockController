@@ -3,10 +3,7 @@ package org.saleoptions;
 import org.DAO.DataAccessObject;
 import org.models.Brand;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
+import org.springframework.jdbc.core.namedparam.*;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -63,9 +60,11 @@ public class Saledb implements DataAccessObject<Sale> {
     @Override
     public int insert(Sale sale) {
 
+        String sql = "INSERT INTO `sale`(`stockcode`, `oid`, `wid`, `qty`, `price`, `discount`) VALUES (:stockcode,:oid,:wid,:qty,:price,:discount)";
 
+        BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(sale);
 
-        return 0;
+        return jdbc.update(sql, param);
     }
 
 

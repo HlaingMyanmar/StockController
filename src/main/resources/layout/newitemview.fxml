@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="258.0" prefWidth="539.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.saleorderoptions.NewItemViewController">
+<AnchorPane fx:id="mainPane" prefHeight="258.0" prefWidth="539.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.saleorderoptions.NewItemViewController">
    <children>
       <TextField fx:id="stockidtxt" layoutX="96.0" layoutY="21.0" prefHeight="30.0" prefWidth="136.0" promptText="ပစ္စည်းကုဒ် #">
          <font>

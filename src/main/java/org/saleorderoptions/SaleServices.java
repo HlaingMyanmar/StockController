@@ -1,5 +1,7 @@
 package org.saleorderoptions;
 
+
+import javafx.scene.control.TableView;
 import org.databases.Stockdb;
 import org.models.Stock;
 import org.orderoptions.Order;
@@ -11,6 +13,8 @@ import org.saleoptions.Saledb;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
+
+
 
 
 public class SaleServices {
@@ -30,12 +34,44 @@ public class SaleServices {
 
 
     @Transactional
-    public void deleteSaleAndUpdatePayment(String __oid, SaleOrder saleOrder) {
+    public int deleteSaleAndUpdatePayment(String __oid, SaleOrder saleOrder, TableView tableView) {
 
-        saledb.getDeleteById(__oid, saleOrder.getStockcode());
-        orderdb.getDeleteById(__oid);
-        paymentdb.subAmount(new Payment(saleOrder.getPayid(), saleOrder.getTotal()));
-        stockdb.sumQty(new Stock(saleOrder.getStockcode(),saleOrder.getStockname(),saleOrder.getQty()));
+        int result = 0;
+
+
+        if( saledb.getDeleteById(__oid, saleOrder.getStockcode())==1 ){
+
+            if(paymentdb.subAmount(new Payment(saleOrder.getPayid(), saleOrder.getTotal()))==1){
+
+               if( stockdb.sumQty(new Stock(saleOrder.getStockcode(),saleOrder.getStockname(),saleOrder.getQty()))==1){
+
+
+                   if(tableView.getItems().size()==1){
+
+                       orderdb.getDeleteById(__oid);
+
+                   }
+
+                   result =1;
+
+
+
+
+
+               }
+
+
+            }
+
+
+
+
+
+
+        }
+
+        return result;
+
     }
 
     @Transactional
