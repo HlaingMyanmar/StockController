@@ -17,46 +17,44 @@
    <children>
       <MenuBar layoutY="2.0" prefHeight="40.0" prefWidth="1296.0" stylesheets="@../css/menusbar.css">
         <menus>
-          <Menu mnemonicParsing="false" text="Account">
+          <Menu mnemonicParsing="false" text="Exit">
             <items>
               <MenuItem mnemonicParsing="false" text="ထွက်ရန်။" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="Users">
+            <Menu mnemonicParsing="false" text="အသုံးပြုသူများ">
                <items>
                   <MenuItem mnemonicParsing="false" text="အသုံးပြုသူ" />
                   <MenuItem mnemonicParsing="false" text="Delete" />
                </items>
             </Menu>
-          <Menu mnemonicParsing="false" text="Stock">
+          <Menu mnemonicParsing="false" text="ပစ္စည်းလက်ကျန်">
             <items>
-              <MenuItem fx:id="showStockbtn" mnemonicParsing="false" text="Stock Lists" />
+              <MenuItem fx:id="showStockbtn" mnemonicParsing="false" text="ပစ္စည်းစာရင်းများ" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="Purchase">
+            <Menu mnemonicParsing="false" text="အဝယ်စာရင်းများ">
                <items>
-                  <MenuItem fx:id="purchaseListsbtn" mnemonicParsing="false" text="Purchase Lists" />
-                  <MenuItem fx:id="newPurchasebtn" mnemonicParsing="false" text="Purchase" />
-                  <MenuItem fx:id="showsupplierbtn" mnemonicParsing="false" text="Supplier Lists" />
+                  <MenuItem fx:id="purchaseListsbtn" mnemonicParsing="false" text="နေ့စဉ် အဝယ်စာရင်းများ" />
+                  <MenuItem fx:id="showsupplierbtn" mnemonicParsing="false" text="ရောင်းသူ အမည်စာရင်းများ" />
+                  <MenuItem fx:id="showcategorybtn" mnemonicParsing="false" text="အမျိုးအစားများ" />
+                  <MenuItem fx:id="showbrandbtn" mnemonicParsing="false" text="အမှတ်တံဆိပ်" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Sale">
+            <Menu mnemonicParsing="false" text="အရောင်းစာရင်းများ">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Sale" />
-                  <MenuItem fx:id="orderListbtn" mnemonicParsing="false" text="Order Lists" />
-                  <MenuItem fx:id="showcategorybtn" mnemonicParsing="false" text="Category" />
-                  <MenuItem fx:id="showbrandbtn" mnemonicParsing="false" text="Brand &amp; Company" />
+                  <MenuItem fx:id="orderListbtn" mnemonicParsing="false" text="နေ့စဉ်အရောင်း စာရင်းများ" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Setting">
+            <Menu mnemonicParsing="false" text="ငွေစာရင်း">
                <items>
                   <MenuItem fx:id="paymentbtn" mnemonicParsing="false" text="ငွေပေးချေခြင်းပုံစံ" />
-                  <MenuItem fx:id="warrantybtn" mnemonicParsing="false" text="အာမခံ" />
                </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem fx:id="warrantybtn" mnemonicParsing="false" text="အာမခံ" />
             </items>
           </Menu>
         </menus>

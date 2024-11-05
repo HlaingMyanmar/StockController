@@ -31,7 +31,20 @@ public class Categorydb implements DataAccessObject<Category>{
 
     public List<Category> getAllListforCIDD(){
 
-        return jdbc.query("SELECT * FROM `category` ORDER BY cid DESC", (rs, rowNum) ->getBrand(rs));
+
+        String sql = """
+                
+                SELECT `cid`, `cname`, `cidd`
+                FROM `category`
+                ORDER BY
+                    CAST(SUBSTRING(`cid`, 6, 8) AS UNSIGNED) DESC,
+                    CAST(SUBSTRING_INDEX(`cid`, '-', -1) AS UNSIGNED) desc;
+                
+                
+                """;
+
+
+        return jdbc.query(sql, (rs, rowNum) ->getBrand(rs));
     }
 
     @Override

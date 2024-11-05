@@ -1,19 +1,28 @@
 package org.controllers;
 
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.Alerts.AlertBox;
 import org.databases.Stockdb;
 import org.datalistgenerator.StockGenerate;
 import org.models.Stock;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 
 import java.net.URL;
 import java.text.NumberFormat;
@@ -76,6 +85,9 @@ public class StockViewController extends StockGenerate implements Initializable 
     @FXML
     private Button exportpdfbtn;
 
+    @FXML
+    private Button setPricebtn;
+
     ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 
     Stockdb dao = context.getBean("stockdb", Stockdb.class);
@@ -132,13 +144,17 @@ public class StockViewController extends StockGenerate implements Initializable 
 
         stocktable.setOnMouseClicked(event -> {
 
+            if(event.getClickCount()==2){
 
-            Stock st = (Stock) stocktable.getSelectionModel().getSelectedItem();
+                Stock st = (Stock) stocktable.getSelectionModel().getSelectedItem();
 
-            _stockcode = st.getStockcode();
-            System.out.println(_stockcode);
-            Stage mainStage = (Stage) stocktable.getScene().getWindow();
-            mainStage.close();
+                _stockcode = st.getStockcode();
+                System.out.println(_stockcode);
+                Stage mainStage = (Stage) stocktable.getScene().getWindow();
+                mainStage.close();
+
+            }
+
 
 
         });
@@ -201,6 +217,110 @@ public class StockViewController extends StockGenerate implements Initializable 
         exportpdfbtn.setOnAction(event -> {
 
             exportToPDF(dao.getAllList(),new Stage());
+
+
+        });
+
+        setPricebtn.setOnAction(event -> {
+
+            try {
+
+
+
+                Stock stock = (Stock)  stocktable.getSelectionModel().getSelectedItem();
+
+                stock.getStockcode();
+
+                class GUI extends Application {
+
+
+                    @Override
+                    public void start(Stage stage) throws Exception {
+
+                        TextField stockprice = new TextField();
+                        stockprice.setPromptText("ဈေးနှုန်းသတ်မှတ်ပါ။");
+
+                        Button button = new Button("သေချာသည်။");
+
+                        VBox box = new VBox();
+                        box.getChildren().addAll(stockprice,button);
+                        Insets insets = new Insets(20, 10, 20, 10);
+                        box.setPadding(insets);
+                        box.setSpacing(20);
+
+                        Scene scene = new Scene(box,250,100);
+
+                        stage.setScene(scene);
+
+                        stage.setTitle("ဈေးနှုန်းသတ်မှတ်ခြင်း");
+                        stage.show();
+
+                        button.setOnAction(event -> {
+
+
+                            try {
+
+                                int price = Integer.parseInt(stockprice.getText());
+
+                                if(dao.setPrice(new Stock(stock.getStockcode(),price))==1){
+
+                                    AlertBox.showInformation("ပစ္စည်းစာရင်းများ", "ဈေးနှုန်းသတ်မှတ်ခြင်း အောင်မြင်သည်။");
+
+                                }
+
+                            }catch (NumberFormatException e ){
+
+                                AlertBox.showError("ပစ္စည်းစာရင်းများ", "ဈေးနှုန်းသတ်မှတ်ပါ။");
+
+
+                            }
+
+
+
+
+                        });
+
+
+
+                        stage.setOnCloseRequest(event1 -> {
+
+
+
+                            ini();
+
+
+                        });
+
+
+                    }
+
+                }
+
+
+                GUI gui = new GUI();
+                try {
+
+
+                    gui.start(new Stage());
+
+
+                } catch (Exception e) {
+
+
+                    throw new RuntimeException(e);
+                }
+
+
+            }catch (NullPointerException e){
+
+
+                AlertBox.showWarning("ပစ္စည်းစာရင်းများ", "ပစ္စည်းတစ်ခုခုကို ရွေးချယ်ပါ။");
+
+            }
+
+
+
+
 
 
         });

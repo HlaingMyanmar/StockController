@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="655.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.controllers.StockViewController">
+<AnchorPane prefHeight="655.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.controllers.StockViewController">
    <children>
       <Pane layoutX="14.0" layoutY="60.0" prefHeight="55.0" prefWidth="1295.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #005796;">
          <children>
@@ -93,6 +93,11 @@
          </font>
       </Label>
       <Button fx:id="exportpdfbtn" focusTraversable="false" layoutX="694.0" layoutY="10.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="136.0" style="-fx-background-color: #4527A0;" text="Export PDF" textFill="WHITE">
+         <font>
+            <Font name="Pyidaungsu Bold" size="19.0" />
+         </font>
+      </Button>
+      <Button fx:id="setPricebtn" focusTraversable="false" layoutX="850.0" layoutY="10.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="136.0" style="-fx-background-color: #4527A0;" text="Set Price" textFill="WHITE">
          <font>
             <Font name="Pyidaungsu Bold" size="19.0" />
          </font>

@@ -260,7 +260,9 @@ public class CategorController implements Initializable {
 
         }catch (IndexOutOfBoundsException e){
 
-            return  getStockIDGenerate(text,dao.getAllList().get(dao.getAllList().size()-1).getCid());
+           // return  getStockIDGenerate(text,dao.getAllList().get(dao.getAllList().size()-1).getCid());
+
+            return  getStockIDGenerate(text,"");
 
         }
 
