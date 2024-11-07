@@ -48,6 +48,10 @@ public class ApplicationViewController implements Initializable {
     private MenuItem orderListbtn;
 
 
+    @FXML
+    private MenuItem exptype_btn;
+
+
 
     @FXML
     private AnchorPane switchPane;
@@ -103,6 +107,28 @@ public class ApplicationViewController implements Initializable {
             stage.initModality(Modality.WINDOW_MODAL);
             Stage mainStage = (Stage) switchPane.getScene().getWindow();
             stage.setTitle("Category");
+            stage.initOwner(mainStage);
+            stage.setScene(scene);
+            stage.show();
+
+        });
+        exptype_btn.setOnAction(event -> {
+
+            Stage stage = new Stage();
+
+
+
+            FXMLLoader fxmlLoader = new FXMLLoader(ApplicationViewController.class.getResource("/layout/exp_types.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            stage.initStyle(StageStyle.UTILITY);
+            stage.initModality(Modality.WINDOW_MODAL);
+            Stage mainStage = (Stage) switchPane.getScene().getWindow();
+            stage.setTitle("အသုံးစရိတ်");
             stage.initOwner(mainStage);
             stage.setScene(scene);
             stage.show();

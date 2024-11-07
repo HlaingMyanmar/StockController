@@ -51,6 +51,12 @@
                   <MenuItem fx:id="paymentbtn" mnemonicParsing="false" text="ငွေပေးချေခြင်းပုံစံ" />
                </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="အသုံးစရိတ်">
+               <items>
+                  <MenuItem fx:id="exptype_btn" mnemonicParsing="false" text="အသုံးစရိတ် အမျိုးအစား" />
+                  <MenuItem fx:id="warrantybtn1" mnemonicParsing="false" text="အာမခံ" />
+               </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
