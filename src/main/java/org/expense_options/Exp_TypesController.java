@@ -120,6 +120,12 @@ public class Exp_TypesController implements Initializable {
                 getRowUpdate(desCol);
                 getRowUpdate(remarkCol);
 
+//                Exp_Types expTypeses = (Exp_Types) exptypetable.getSelectionModel().getSelectedItem();
+//                System.out.println(expTypeses.getCategory_name());
+//                System.out.println(getExpId(expTypeses.getCategory_name()));
+
+
+
 
             }
 
@@ -136,6 +142,8 @@ public class Exp_TypesController implements Initializable {
         getLoadData();
 
         exptypetable.setEditable(true);
+
+
 
 
     }
@@ -166,30 +174,61 @@ public class Exp_TypesController implements Initializable {
 
 
     private void getableColumn(TableColumn<Exp_Types, String> tableColumn, TableView<Exp_Types> exptypetable) {
+
+
+
+
+
+
+
         tableColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
         tableColumn.setOnEditCommit(event -> {
+
+
+
+            String oldvalue = String.valueOf(event.getOldValue());
             String value = String.valueOf(event.getNewValue());
             Exp_Types expTypes = event.getRowValue();
 
+
+
+
+
             boolean bo = false;
+
+            Exp_Types expTypesUpdate = null;
 
 
             if (tableColumn.getText().equals("ကုန်ကျစရိတ် အမျိုးအစား")) {
 
                 expTypes.setCategory_name(value);
                 bo = true;
+               expTypesUpdate= new Exp_Types(
+                       getExpId(oldvalue),
+                       expTypes.getCategory_name(),
+                       expTypes.getDescription()
+
+                );
 
             } else if (tableColumn.getText().equals("ကုန်ကျစရိတ်အချက်အလက်")) {
                 expTypes.setDescription(value);
+
+                expTypesUpdate= new Exp_Types(
+
+                        getExpId(expTypes.getCategory_name()),
+                        expTypes.getCategory_name(),
+                        expTypes.getDescription()
+
+                );
             }
 
 
-            Exp_Types expTypesUpdate = new Exp_Types(
-                    getExpId(expTypes.getCategory_name()),
-                    expTypes.getCategory_name(),
-                    expTypes.getDescription()
-            );
+
+
+
+
+
 
             if (expTypedb.update(expTypesUpdate) == 1 ) {
 

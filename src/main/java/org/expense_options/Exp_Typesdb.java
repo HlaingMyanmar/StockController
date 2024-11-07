@@ -78,10 +78,11 @@ public class Exp_Typesdb implements DataAccessObject<Exp_Types> {
     public int update(Exp_Types expTypes) {
 
 
-
         String sql ="UPDATE `exp_category` SET `category_name`=:category_name,`description`=:description WHERE `category_id`=:category_id";
 
-        return jdbc.update(sql,new BeanPropertySqlParameterSource(expTypes));
+        BeanPropertySqlParameterSource parma = new BeanPropertySqlParameterSource(expTypes);
+
+        return jdbc.update(sql,parma);
     }
 
     @Override
