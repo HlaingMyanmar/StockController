@@ -52,6 +52,10 @@ public class ApplicationViewController implements Initializable {
     private MenuItem exptype_btn;
 
 
+    @FXML
+    private MenuItem dailyexpe_btn;
+
+
 
     @FXML
     private AnchorPane switchPane;
@@ -236,6 +240,26 @@ public class ApplicationViewController implements Initializable {
         showsupplierbtn.setOnAction(event -> {
 
             FXMLLoader fxmlLoader2 = new FXMLLoader(ApplicationViewController.class.getResource("/layout/supplierview.fxml"));
+            Node node = null;
+
+            try {
+
+                node = fxmlLoader2.load();
+                switchPane.getChildren().clear();
+                switchPane.getChildren().add(node);
+
+
+
+            } catch (IOException e) {
+
+                throw new RuntimeException(e);
+            }
+
+        });
+
+        dailyexpe_btn.setOnAction(event -> {
+
+            FXMLLoader fxmlLoader2 = new FXMLLoader(ApplicationViewController.class.getResource("/layout/exp_daily_view.fxml"));
             Node node = null;
 
             try {

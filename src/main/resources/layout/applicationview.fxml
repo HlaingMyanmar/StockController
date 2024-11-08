@@ -54,7 +54,7 @@
             <Menu mnemonicParsing="false" text="အသုံးစရိတ်">
                <items>
                   <MenuItem fx:id="exptype_btn" mnemonicParsing="false" text="အသုံးစရိတ် အမျိုးအစား" />
-                  <MenuItem fx:id="warrantybtn1" mnemonicParsing="false" text="အာမခံ" />
+                  <MenuItem fx:id="dailyexpe_btn" mnemonicParsing="false" text="နေ့စဉ်အသုံးစရိတ်" />
                </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Help">
