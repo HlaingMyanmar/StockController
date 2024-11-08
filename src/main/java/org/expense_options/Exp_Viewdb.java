@@ -36,7 +36,7 @@ public class Exp_Viewdb implements DataAccessObject<Exp_View> {
                 SELECT `expense_id`, `expense_date`, `category_id`, `amount`, `description`, `created_at`, `updated_at` FROM `expense`
                 ORDER BY
                     CAST(SUBSTRING(`expense_id`, 6, 8) AS UNSIGNED) DESC,         
-                    CAST(SUBSTRING_INDEX(`expense_id`, '-', -1) AS UNSIGNED) ASC; 
+                    CAST(SUBSTRING_INDEX(`expense_id`, '-', -1) AS UNSIGNED) DESC; 
                 
                 
                 
@@ -65,7 +65,7 @@ public class Exp_Viewdb implements DataAccessObject<Exp_View> {
     @Override
     public int insert(Exp_View expView) {
 
-        String sql = "INSERT INTO `expense`(`expense_id`, `expense_date`, `category_id`, `amount`, `description`, `created_at`, `updated_at`) VALUES (:expense_id,:expense_date,:category_id,:total,:description,:created_at,:updated_at)";
+        String sql = "INSERT INTO `expense`(`expense_id`, `expense_date`, `category_id`, `amount`, `description`) VALUES (:expense_id,:expense_date,:category_id,:total,:description)";
 
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(expView);
 

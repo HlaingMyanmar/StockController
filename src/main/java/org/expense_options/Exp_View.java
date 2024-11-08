@@ -26,6 +26,14 @@ public class Exp_View {
         this.updated_at = updated_at;
     }
 
+    public Exp_View(String expense_id, Date expense_date, int category_id, int total, String description) {
+        this.expense_id = expense_id;
+        this.expense_date = expense_date;
+        this.category_id = category_id;
+        this.total = total;
+        this.description = description;
+    }
+
     public String getExpense_id() {
         return expense_id;
     }
