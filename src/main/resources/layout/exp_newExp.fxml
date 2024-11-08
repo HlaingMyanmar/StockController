@@ -15,25 +15,25 @@
             <Font name="Pyidaungsu" size="12.0" />
          </font>
       </TextField>
-      <TextField fx:id="amount" layoutX="17.0" layoutY="128.0" prefHeight="32.0" prefWidth="373.0" promptText="ပမာဏ">
-         <font>
-            <Font name="Pyidaungsu" size="12.0" />
-         </font>
-      </TextField>
       <TextField fx:id="date" layoutX="207.0" layoutY="16.0" prefHeight="32.0" prefWidth="180.0" promptText="ရက်စွဲ">
          <font>
             <Font name="Pyidaungsu" size="12.0" />
          </font>
       </TextField>
       <JFXComboBox fx:id="exp_cat" layoutX="14.0" layoutY="63.0" prefHeight="39.0" prefWidth="373.0" promptText="အမျိုးအစား" />
+      <TextField fx:id="amount" layoutX="17.0" layoutY="128.0" prefHeight="32.0" prefWidth="373.0" promptText="ပမာဏ">
+         <font>
+            <Font name="Pyidaungsu" size="12.0" />
+         </font>
+      </TextField>
       <TextArea fx:id="desc" layoutX="17.0" layoutY="186.0" prefHeight="199.0" prefWidth="373.0" />
+      <JFXCheckBox fx:id="kbzchebox" layoutX="19.0" layoutY="406.0" text="KBZ Pay" />
+      <JFXCheckBox fx:id="wavechebox" layoutX="163.0" layoutY="406.0" text="Wave Pay" />
+      <JFXCheckBox fx:id="cashchebox" layoutX="327.0" layoutY="406.0" text="Cash" />
       <Button fx:id="newExpbtn" layoutX="17.0" layoutY="462.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="156.0" style="-fx-background-color: #2962FF; -fx-text-fill: #FFFFFF;" text="အသစ်ထည့်မည်။">
          <font>
             <Font name="Pyidaungsu Bold" size="12.0" />
          </font>
       </Button>
-      <JFXCheckBox fx:id="kbzchebox" layoutX="19.0" layoutY="406.0" text="KBZ Pay" />
-      <JFXCheckBox fx:id="wavechebox" layoutX="163.0" layoutY="406.0" text="Wave Pay" />
-      <JFXCheckBox fx:id="cashchebox" layoutX="327.0" layoutY="406.0" text="Cash" />
    </children>
 </AnchorPane>

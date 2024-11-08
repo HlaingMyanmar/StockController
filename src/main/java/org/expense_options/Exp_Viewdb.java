@@ -44,6 +44,21 @@ public class Exp_Viewdb implements DataAccessObject<Exp_View> {
 
         return jdbc.query(sql, (rs, rowNum) -> getExpViewData(rs));
     }
+    public List<Exp_View> getAllListView() {
+
+        String sql = """
+                
+                SELECT e.expense_id, e.expense_date, ec.category_name, e.amount,e.description, e.created_at, e.updated_at FROM `expense` e
+                inner join exp_category ec on ec.category_id = e.category_id
+                ORDER BY
+                CAST(SUBSTRING(e.expense_id, 6, 8) AS UNSIGNED) ASC,        
+                CAST(SUBSTRING_INDEX(e.expense_id, '-', -1) AS UNSIGNED) ASC
+                
+                
+                """;
+
+        return jdbc.query(sql, (rs, rowNum) -> getExpViewDataView(rs));
+    }
 
     @Override
     public Brand getBrandById(String id, String name) {
@@ -104,7 +119,28 @@ public class Exp_Viewdb implements DataAccessObject<Exp_View> {
         Exp_View expView = new Exp_View();
 
         expView.setExpense_id(rs.getString("expense_id"));
+        expView.setExpense_date(rs.getDate("expense_date"));
         expView.setCategory_id(rs.getInt("category_id"));
+        expView.setDescription(rs.getString("description"));
+        expView.setCreated_at(rs.getTimestamp("created_at"));
+        expView.setUpdated_at(rs.getTimestamp("updated_at"));
+        expView.setTotal(rs.getInt("amount"));
+
+
+        return expView;
+
+
+
+    }
+
+    private Exp_View getExpViewDataView(ResultSet rs) throws SQLException {
+
+
+        Exp_View expView = new Exp_View();
+
+        expView.setExpense_id(rs.getString("expense_id"));
+        expView.setExpense_date(rs.getDate("expense_date"));
+        expView.setCategory_name(rs.getString("category_name"));
         expView.setDescription(rs.getString("description"));
         expView.setCreated_at(rs.getTimestamp("created_at"));
         expView.setUpdated_at(rs.getTimestamp("updated_at"));

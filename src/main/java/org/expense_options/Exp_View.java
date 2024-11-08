@@ -8,6 +8,7 @@ public class Exp_View {
     private String expense_id;
     private Date expense_date;
     private int category_id;
+    private String category_name;
     private int total;
     private String description;
     private Timestamp created_at;
@@ -26,12 +27,39 @@ public class Exp_View {
         this.updated_at = updated_at;
     }
 
+    public Exp_View(String expense_id, Date expense_date, String category_name, int total, String description) {
+        this.expense_id = expense_id;
+        this.expense_date = expense_date;
+        this.category_name = category_name;
+        this.total = total;
+        this.description = description;
+    }
+
+    public Exp_View(String expense_id, Date expense_date, int category_id, String category_name, int total, String description, Timestamp created_at, Timestamp updated_at) {
+        this.expense_id = expense_id;
+        this.expense_date = expense_date;
+        this.category_id = category_id;
+        this.category_name = category_name;
+        this.total = total;
+        this.description = description;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+    }
+
     public Exp_View(String expense_id, Date expense_date, int category_id, int total, String description) {
         this.expense_id = expense_id;
         this.expense_date = expense_date;
         this.category_id = category_id;
         this.total = total;
         this.description = description;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
     }
 
     public String getExpense_id() {
