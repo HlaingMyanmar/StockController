@@ -206,6 +206,7 @@ public class Exp_ViewController implements Initializable {
                 getRowUpdate(catCol);
                 getRowUpdate(descCol);
                 getRowUpdateInteger(amountCol);
+                getRowUpdate(payCol);
 
 
             }
@@ -458,59 +459,61 @@ public class Exp_ViewController implements Initializable {
 
 
         JComboBox<String> comboBox = new JComboBox<>(getExpTypeList().toArray(new String[0]));
-
-
-
+        JComboBox<String> paybox = new JComboBox<>(getPayTypeList().toArray(new String[0]));
 
             tableColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
             tableColumn.setOnEditCommit(event -> {
 
-                int  result = JOptionPane.showConfirmDialog(null,comboBox,"အသုံးစရိတ် အမျိုးအစား တစ်ခုရွေးချယ်ပါ။",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
 
-                if(result == JOptionPane.OK_OPTION) {
-
-
-                String comboxdata = (String) comboBox.getSelectedItem();
+                if (Objects.equals(tableColumn.getText(), "အမျိုးအစား")) {
 
 
-
-                String value = String.valueOf(event.getNewValue());
-                Exp_View expView = event.getRowValue();
+                    int result = JOptionPane.showConfirmDialog(null, comboBox, "အသုံးစရိတ် အမျိုးအစား တစ်ခုရွေးချယ်ပါ။", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
 
-
-                if(Objects.equals(tableColumn.getText(), "အမျိုးအစား")){
-
-
-                    event.getRowValue().setCategory_name(value);
-
-                    Exp_View updateView = new Exp_View(
-
-                            expView.getExpense_id(),
-                            expView.getExpense_date(),
-                            getExpId(comboxdata),
-                            expView.getTotal(),
-                            expView.getDescription(),
-                            expView.getCreated_at(),
-                            new Timestamp(System.currentTimeMillis()),
-                            getPayId(expView.getPaymentmethod())
+                    if (result == JOptionPane.OK_OPTION) {
 
 
-                    );
+                        String comboxdata = (String) comboBox.getSelectedItem();
 
-                    if(expViewdb.update(updateView)==1){
 
-                        AlertBox.showInformation("အသုံးစရိတ်","အသုံးစရိတ် အမျိုးအစားကို အောင်မြင်စွာပြုပြင် ပြီးပါပြီ။");
+                        String value = String.valueOf(event.getNewValue());
+                        Exp_View expView = event.getRowValue();
 
-                        ini();
+
+                        event.getRowValue().setCategory_name(value);
+
+                        Exp_View updateView = new Exp_View(
+
+                                expView.getExpense_id(),
+                                expView.getExpense_date(),
+                                getExpId(comboxdata),
+                                expView.getTotal(),
+                                expView.getDescription(),
+                                expView.getCreated_at(),
+                                new Timestamp(System.currentTimeMillis()),
+                                getPayId(expView.getPaymentmethod())
+
+
+                        );
+
+                        if (expViewdb.update(updateView) == 1) {
+
+                            AlertBox.showInformation("အသုံးစရိတ်", "အသုံးစရိတ် အမျိုးအစားကို အောင်မြင်စွာပြုပြင် ပြီးပါပြီ။");
+
+                            ini();
+
+
+                        }
 
 
                     }
-
-
-
                 } else if (Objects.equals(tableColumn.getText(), "အကြောင်းအရာ")) {
+
+                    String value = String.valueOf(event.getNewValue());
+                    Exp_View expView = event.getRowValue();
+
 
                     event.getRowValue().setDescription(value);
 
@@ -518,28 +521,67 @@ public class Exp_ViewController implements Initializable {
 
                             expView.getExpense_id(),
                             expView.getExpense_date(),
-                            getExpId(comboxdata),
+                            getExpId(expView.getCategory_name()),
+                            //  getExpId(comboxdata),
                             expView.getTotal(),
                             expView.getDescription(),
                             expView.getCreated_at(),
                             new Timestamp(System.currentTimeMillis()),
-                            getPayId(expView.getPaymentmethod())
+                            getPayId(expView.getPaymentmethod()));
 
-                    );
-                    if(expViewdb.update(updateView)==1){
+                    if (expViewdb.update(updateView) == 1) {
 
-                        AlertBox.showInformation("အသုံးစရိတ်","အသုံးစရိတ် အကြောင်းအရာကို အောင်မြင်စွာပြုပြင် ပြီးပါပြီ။");
+                        AlertBox.showInformation("အသုံးစရိတ်", "အသုံးစရိတ် အကြောင်းအရာကို အောင်မြင်စွာပြုပြင် ပြီးပါပြီ။");
 
                         ini();
 
 
                     }
 
-                    
+                }
+                else if (Objects.equals(tableColumn.getText(), "ငွေပေးချေခြင်း")) {
+
+
+                    int result = JOptionPane.showConfirmDialog(null, paybox, "ငွေပေးချေခြင်း အမျိုးအစား တစ်ခုရွေးချယ်ပါ။", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+
+                    if (result == JOptionPane.OK_OPTION) {
+
+
+
+                        String comboxdata = (String) paybox.getSelectedItem();
+
+
+                        String value = String.valueOf(event.getNewValue());
+                        Exp_View expView = event.getRowValue();
+
+
+                        event.getRowValue().setPaymentmethod(value);
+
+
+
+                        Exp_View updateView = new Exp_View(
+
+                                expView.getExpense_id(),
+                                getPayId(comboxdata)
+
+
+                        );
+
+                        if (expViewdb.paymentupdate(updateView) == 1) {
+
+                            AlertBox.showInformation("အသုံးစရိတ်", "အသုံးစရိတ် အမျိုးအစားကို အောင်မြင်စွာပြုပြင် ပြီးပါပြီ။");
+
+                            ini();
+
+
+                        }
+
+
+                    }
                 }
 
 
-                }
 
 
 
@@ -603,12 +645,36 @@ public class Exp_ViewController implements Initializable {
 
     }
 
+    private ObservableList<String> getPayMethodList(){
+
+        ObservableList<String> list = FXCollections.observableArrayList();
+
+        list.addAll(paymentdb.getAllList().stream()
+                .map(Payment::getPaymethodname)
+                .toList());
+
+        return list;
+
+    }
+
     private ObservableList<String> getExpTypeList(){
 
         ObservableList<String> list = FXCollections.observableArrayList();
 
         list.addAll(expTypedb.getAllList().stream()
                 .map(Exp_Types::getCategory_name)
+                .toList());
+
+        return list;
+
+    }
+
+    private ObservableList<String> getPayTypeList(){
+
+        ObservableList<String> list = FXCollections.observableArrayList();
+
+        list.addAll(paymentdb.getAllList().stream()
+                .map(Payment::getPaymethodname)
                 .toList());
 
         return list;
@@ -636,6 +702,7 @@ public class Exp_ViewController implements Initializable {
                     .findFirst().orElse(-1);
 
     }
+
 
 
 

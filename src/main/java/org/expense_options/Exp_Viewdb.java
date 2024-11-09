@@ -112,6 +112,24 @@ public class Exp_Viewdb implements DataAccessObject<Exp_View> {
         return jdbc.update(sql,param);
     }
 
+    public int paymentupdate(Exp_View expView) {
+
+
+        String sql = """
+                
+                 UPDATE `expense`
+                 SET `updated_at` = NOW(), `payid` = :paymentid
+                 WHERE `expense_id` = :expense_id
+                
+                
+                """;
+
+        BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(expView);
+
+        return jdbc.update(sql,param);
+    }
+
+
     @Override
     public int[] updateBatch(List<Exp_View> t) {
         return new int[0];
