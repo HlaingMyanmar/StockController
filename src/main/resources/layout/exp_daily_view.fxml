@@ -15,15 +15,16 @@
 
 <AnchorPane prefHeight="654.0" prefWidth="1285.0" style="-fx-background-color: #F1CE33;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.expense_options.Exp_ViewController">
    <children>
-      <TableView fx:id="expensetable" layoutX="20.0" layoutY="279.0" prefHeight="357.0" prefWidth="1249.0" stylesheets="@../css/exp_tablecss.css">
+      <TableView fx:id="expensetable" layoutX="20.0" layoutY="279.0" prefHeight="357.0" prefWidth="1236.0" stylesheets="@../css/exp_tablecss.css">
         <columns>
           <TableColumn fx:id="codeCol" prefWidth="149.0" text="ကုဒ်" />
             <TableColumn fx:id="dateCol" prefWidth="98.0" text="ရက်စွဲ" />
           <TableColumn fx:id="catCol" prefWidth="157.0" text="အမျိုးအစား" />
             <TableColumn fx:id="amountCol" prefWidth="117.0" text="ပမာဏ" />
-            <TableColumn fx:id="descCol" prefWidth="416.0" text="အကြောင်းအရာ" />
-            <TableColumn fx:id="createCol" prefWidth="145.0" text="သတ်မှတ်သည့်အချိန်" />
-            <TableColumn fx:id="updateCol" prefWidth="147.0" text="ပြင်ဆင်သည့်အချိန်" />
+            <TableColumn fx:id="payCol" prefWidth="117.0" text="ငွေပေးချေခြင်း" />
+            <TableColumn fx:id="descCol" prefWidth="342.0" text="အကြောင်းအရာ" />
+            <TableColumn fx:id="createCol" prefWidth="126.0" text="သတ်မှတ်သည့်အချိန်" />
+            <TableColumn fx:id="updateCol" prefWidth="116.0" text="ပြင်ဆင်သည့်အချိန်" />
         </columns>
       </TableView>
       <PieChart fx:id="pieChart" layoutX="893.0" layoutY="10.0" prefHeight="254.0" prefWidth="375.0" />

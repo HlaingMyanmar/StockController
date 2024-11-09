@@ -16,16 +16,21 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.Alerts.AlertBox;
 import org.controllers.ApplicationViewController;
+import org.models.Category;
 import org.models.PurchaseList;
+import org.paymentoptions.Payment;
+import org.paymentoptions.Paymentdb;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -35,6 +40,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -79,6 +85,9 @@ public class Exp_ViewController implements Initializable {
     private TableColumn<Exp_View, String> descCol;
 
     @FXML
+    private TableColumn<Exp_View, String> payCol;
+
+    @FXML
     private TableView expensetable;
 
     @FXML
@@ -105,6 +114,8 @@ public class Exp_ViewController implements Initializable {
 
     Exp_Typesdb expTypedb = context.getBean("exp_typesdb",Exp_Typesdb.class);
 
+    Paymentdb paymentdb  = context.getBean("paymentdb",Paymentdb.class);
+
 
 
     @Override
@@ -117,6 +128,8 @@ public class Exp_ViewController implements Initializable {
         actionEvent();
 
         tableini();
+
+        expensetable.setEditable(true);
 
 
 
@@ -131,6 +144,7 @@ public class Exp_ViewController implements Initializable {
         descCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         createCol.setCellValueFactory(new PropertyValueFactory<>("created_at"));
         updateCol.setCellValueFactory(new PropertyValueFactory<>("updated_at"));
+        payCol.setCellValueFactory(new PropertyValueFactory<>("paymentmethod"));
 
 
 
@@ -179,6 +193,24 @@ public class Exp_ViewController implements Initializable {
 
             ObservableList<Exp_View>expViews = expensetable.getSelectionModel().getSelectedItems();
             exportToPDF(expViews,new Stage());
+
+
+        });
+
+
+        expensetable.setOnMouseClicked(event -> {
+
+
+            if(event.getClickCount()==2){
+
+                getRowUpdate(catCol);
+                getRowUpdate(descCol);
+                getRowUpdateInteger(amountCol);
+
+
+            }
+
+
 
 
         });
@@ -410,6 +442,201 @@ public class Exp_ViewController implements Initializable {
             }
         }
     }
+
+    private void getRowUpdate(TableColumn<Exp_View, String> tableColumn) {
+        getableColumn(tableColumn, expensetable);
+    }
+
+    private void getRowUpdateInteger(TableColumn<Exp_View, Integer> tableColumn) {
+        getableColumnInteger(tableColumn, expensetable);
+    }
+
+
+
+    private void getableColumn(TableColumn<Exp_View, String> tableColumn,TableView<Exp_Types> exptypetable) {
+
+
+
+        JComboBox<String> comboBox = new JComboBox<>(getExpTypeList().toArray(new String[0]));
+
+
+
+
+            tableColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+            tableColumn.setOnEditCommit(event -> {
+
+                int  result = JOptionPane.showConfirmDialog(null,comboBox,"အသုံးစရိတ် အမျိုးအစား တစ်ခုရွေးချယ်ပါ။",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+
+                if(result == JOptionPane.OK_OPTION) {
+
+
+                String comboxdata = (String) comboBox.getSelectedItem();
+
+
+
+                String value = String.valueOf(event.getNewValue());
+                Exp_View expView = event.getRowValue();
+
+
+
+                if(Objects.equals(tableColumn.getText(), "အမျိုးအစား")){
+
+
+                    event.getRowValue().setCategory_name(value);
+
+                    Exp_View updateView = new Exp_View(
+
+                            expView.getExpense_id(),
+                            expView.getExpense_date(),
+                            getExpId(comboxdata),
+                            expView.getTotal(),
+                            expView.getDescription(),
+                            expView.getCreated_at(),
+                            new Timestamp(System.currentTimeMillis()),
+                            getPayId(expView.getPaymentmethod())
+
+
+                    );
+
+                    if(expViewdb.update(updateView)==1){
+
+                        AlertBox.showInformation("အသုံးစရိတ်","အသုံးစရိတ် အမျိုးအစားကို အောင်မြင်စွာပြုပြင် ပြီးပါပြီ။");
+
+                        ini();
+
+
+                    }
+
+
+
+                } else if (Objects.equals(tableColumn.getText(), "အကြောင်းအရာ")) {
+
+                    event.getRowValue().setDescription(value);
+
+                    Exp_View updateView = new Exp_View(
+
+                            expView.getExpense_id(),
+                            expView.getExpense_date(),
+                            getExpId(comboxdata),
+                            expView.getTotal(),
+                            expView.getDescription(),
+                            expView.getCreated_at(),
+                            new Timestamp(System.currentTimeMillis()),
+                            getPayId(expView.getPaymentmethod())
+
+                    );
+                    if(expViewdb.update(updateView)==1){
+
+                        AlertBox.showInformation("အသုံးစရိတ်","အသုံးစရိတ် အကြောင်းအရာကို အောင်မြင်စွာပြုပြင် ပြီးပါပြီ။");
+
+                        ini();
+
+
+                    }
+
+                    
+                }
+
+
+                }
+
+
+
+            });
+
+
+
+
+
+
+    }
+
+    private void getableColumnInteger(TableColumn<Exp_View, Integer> tableColumn,TableView<Exp_Types> exptypetable) {
+
+
+        tableColumn.setCellFactory(TextFieldTableCell.forTableColumn(new javafx.util.converter.IntegerStringConverter()));
+
+        tableColumn.setOnEditCommit(event -> {
+
+
+
+                int value = event.getNewValue();
+                Exp_View expView = event.getRowValue();
+                
+
+                    event.getRowValue().setTotal(value);
+
+                    Exp_View updateView = new Exp_View(
+
+                            expView.getExpense_id(),
+                            expView.getExpense_date(),
+                            getExpId(expView.getCategory_name()),
+                            expView.getTotal(),
+                            expView.getDescription(),
+                            expView.getCreated_at(),
+                            new Timestamp(System.currentTimeMillis()),
+                            getPayId(expView.getPaymentmethod())
+
+                    );
+
+                    if(expViewdb.update(updateView)==1){
+
+                        AlertBox.showInformation("အသုံးစရိတ်","အသုံးစရိတ် ပမဏ ကို အောင်မြင်စွာပြုပြင် ပြီးပါပြီ။");
+
+                        ini();
+
+
+                    }
+
+
+
+
+
+
+        });
+
+
+
+
+
+
+    }
+
+    private ObservableList<String> getExpTypeList(){
+
+        ObservableList<String> list = FXCollections.observableArrayList();
+
+        list.addAll(expTypedb.getAllList().stream()
+                .map(Exp_Types::getCategory_name)
+                .toList());
+
+        return list;
+
+    }
+
+    private int getExpId(String type){
+
+
+        return  expTypedb.getAllList().stream()
+                .filter(expTypes -> expTypes.getCategory_name().equals(type))
+                .map(Exp_Types::getCategory_id)
+                .findFirst().orElse(-1);
+
+
+    }
+
+
+
+    private int getPayId(String payname){
+
+            return paymentdb.getAllList().stream()
+                    .filter(payment -> payment.getPaymethodname().equals(payname))
+                    .map(Payment::getPayid)
+                    .findFirst().orElse(-1);
+
+    }
+
 
 
 

@@ -95,7 +95,9 @@ public class Exp_NewController implements Initializable {
                 int total = Integer.parseInt(amount.getText());
                 String descri = desc.getText();
 
-                Exp_View expView =new Exp_View(code,exdate,exptype,total,descri);
+
+
+                Exp_View expView =new Exp_View(code,exdate,exptype,total,descri,checkboxid);
                 Payment payment = new Payment(checkboxid,expView.getTotal());
 
 

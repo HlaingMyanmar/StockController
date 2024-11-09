@@ -13,7 +13,55 @@ public class Exp_View {
     private String description;
     private Timestamp created_at;
     private Timestamp updated_at;
+    private int paymentid;
+    private String paymentmethod;
 
+    public Exp_View(String expense_id, Date expense_date, int category_id, int total, String description, int paymentid) {
+        this.expense_id = expense_id;
+        this.expense_date = expense_date;
+        this.category_id = category_id;
+        this.total = total;
+        this.description = description;
+        this.paymentid = paymentid;
+    }
+
+    public Exp_View(String expense_id, Date expense_date, int category_id, int total, String description, String paymentmethod) {
+        this.expense_id = expense_id;
+        this.expense_date = expense_date;
+        this.category_id = category_id;
+        this.total = total;
+        this.description = description;
+        this.paymentmethod =paymentmethod;
+    }
+
+    public Exp_View(String expense_id, Date expense_date, int category_id, int total, String description, Timestamp created_at, Timestamp updated_at, int paymentid) {
+        this.expense_id = expense_id;
+        this.expense_date = expense_date;
+        this.category_id = category_id;
+
+        this.total = total;
+        this.description = description;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+        this.paymentid = paymentid;
+    }
+
+    public int getPaymentid() {
+        return paymentid;
+    }
+
+    public void setPaymentid(int paymentid) {
+        this.paymentid = paymentid;
+    }
+
+
+    public String getPaymentmethod() {
+        return paymentmethod;
+    }
+
+    public void setPaymentmethod(String paymentmethod) {
+        this.paymentmethod = paymentmethod;
+    }
 
     public Exp_View(){}
 
@@ -33,6 +81,15 @@ public class Exp_View {
         this.category_name = category_name;
         this.total = total;
         this.description = description;
+    }
+
+    public Exp_View(String expense_id, Date expense_date, int total, String description, Timestamp created_at, Timestamp updated_at) {
+        this.expense_id = expense_id;
+        this.expense_date = expense_date;
+        this.total = total;
+        this.description = description;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
     }
 
     public Exp_View(String expense_id, Date expense_date, int category_id, String category_name, int total, String description, Timestamp created_at, Timestamp updated_at) {

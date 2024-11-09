@@ -48,8 +48,9 @@ public class Exp_Viewdb implements DataAccessObject<Exp_View> {
 
         String sql = """
                 
-                SELECT e.expense_id, e.expense_date, ec.category_name, e.amount,e.description, e.created_at, e.updated_at FROM `expense` e
+                SELECT e.expense_id, e.expense_date, ec.category_name, e.amount,e.description,p.paymethodname, e.created_at, e.updated_at FROM `expense` e
                 inner join exp_category ec on ec.category_id = e.category_id
+                inner join payment p on e.payid = p.payid
                 ORDER BY
                 CAST(SUBSTRING(e.expense_id, 6, 8) AS UNSIGNED) ASC,        
                 CAST(SUBSTRING_INDEX(e.expense_id, '-', -1) AS UNSIGNED) ASC
@@ -58,6 +59,14 @@ public class Exp_Viewdb implements DataAccessObject<Exp_View> {
                 """;
 
         return jdbc.query(sql, (rs, rowNum) -> getExpViewDataView(rs));
+    }
+
+    public List<Exp_View>getList(){
+
+            String sql = "SELECT * FROM `expense` WHERE 1";
+
+            return jdbc.query(sql, (rs, rowNum) -> getExpViewData(rs));
+
     }
 
     @Override
@@ -80,7 +89,7 @@ public class Exp_Viewdb implements DataAccessObject<Exp_View> {
     @Override
     public int insert(Exp_View expView) {
 
-        String sql = "INSERT INTO `expense`(`expense_id`, `expense_date`, `category_id`, `amount`, `description`) VALUES (:expense_id,:expense_date,:category_id,:total,:description)";
+        String sql = "INSERT INTO `expense`(`expense_id`, `expense_date`, `category_id`, `amount`, `description`,`payid`) VALUES (:expense_id,:expense_date,:category_id,:total,:description,:paymentid)";
 
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(expView);
 
@@ -93,7 +102,7 @@ public class Exp_Viewdb implements DataAccessObject<Exp_View> {
 
         String sql = """
                 
-                UPDATE `expense` SET `expense_date`=::expense_date,`category_id`=:category_id,`amount`=:total,`description`=:description,`updated_at`=:updated_at WHERE `expense_id`=:expense_id
+                UPDATE `expense` SET `category_id`=:category_id,`amount`=:total,`description`=:description,`updated_at`=:updated_at,`payid`=:paymentid WHERE `expense_id`=:expense_id
                 
                 
                 """;
@@ -141,6 +150,7 @@ public class Exp_Viewdb implements DataAccessObject<Exp_View> {
         expView.setExpense_id(rs.getString("expense_id"));
         expView.setExpense_date(rs.getDate("expense_date"));
         expView.setCategory_name(rs.getString("category_name"));
+        expView.setPaymentmethod(rs.getString("paymethodname"));
         expView.setDescription(rs.getString("description"));
         expView.setCreated_at(rs.getTimestamp("created_at"));
         expView.setUpdated_at(rs.getTimestamp("updated_at"));
