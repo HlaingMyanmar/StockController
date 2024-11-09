@@ -77,8 +77,7 @@ public class Exp_Viewdb implements DataAccessObject<Exp_View> {
     @Override
     public int getDeleteById(String id) {
 
-
-        String sql = "DELETE FROM `expense` WHERE `expense_id`=id";
+        String sql = "DELETE FROM `expense` WHERE `expense_id` = :expense_id";
 
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue("expense_id", id);

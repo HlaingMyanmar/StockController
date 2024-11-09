@@ -17,16 +17,19 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.Alerts.AlertBox;
 import org.controllers.ApplicationViewController;
+import org.expense_services.ExpenseServices;
 import org.models.Category;
 import org.models.PurchaseList;
 import org.paymentoptions.Payment;
 import org.paymentoptions.Paymentdb;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -118,6 +121,9 @@ public class Exp_ViewController implements Initializable {
 
 
 
+
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -129,7 +135,7 @@ public class Exp_ViewController implements Initializable {
 
         tableini();
 
-        expensetable.setEditable(true);
+
 
 
 
@@ -189,7 +195,11 @@ public class Exp_ViewController implements Initializable {
 
         });
 
+        expensetable.setEditable(true);
+
         exportpdf.setOnAction(event -> {
+
+
 
             ObservableList<Exp_View>expViews = expensetable.getSelectionModel().getSelectedItems();
             exportToPDF(expViews,new Stage());
@@ -211,6 +221,34 @@ public class Exp_ViewController implements Initializable {
 
             }
 
+
+
+
+
+
+        });
+
+        expensetable.setOnKeyPressed(event -> {
+
+
+            if(event.getCode()== KeyCode.DELETE){
+
+                Exp_View expView = (Exp_View) expensetable.getSelectionModel().getSelectedItem();
+
+
+
+                if(new ExpenseServices().useExpenseDelete(expView.getExpense_id(), new Payment(getPayId(expView.getPaymentmethod()), expView.getTotal()))){
+
+                        AlertBox.showInformation("အသုံးစရိတ်","အောင်မြင်စွာ ဖျက်ပြီးပါပြီ။");
+
+                        ini();
+
+                }
+
+
+
+
+            }
 
 
 
@@ -551,6 +589,8 @@ public class Exp_ViewController implements Initializable {
 
                         String comboxdata = (String) paybox.getSelectedItem();
 
+                        String paymethodmethodname = event.getOldValue();
+
 
                         String value = String.valueOf(event.getNewValue());
                         Exp_View expView = event.getRowValue();
@@ -570,10 +610,13 @@ public class Exp_ViewController implements Initializable {
 
                         if (expViewdb.paymentupdate(updateView) == 1) {
 
-                            AlertBox.showInformation("အသုံးစရိတ်", "အသုံးစရိတ် အမျိုးအစားကို အောင်မြင်စွာပြုပြင် ပြီးပါပြီ။");
+                            if(paymentdb.sumAmount(new Payment(getPayId(paymethodmethodname),expView.getTotal()))==1 && paymentdb.subAmount(new Payment( getPayId(comboxdata),expView.getTotal()))==1) {
 
-                            ini();
+                                AlertBox.showInformation("အသုံးစရိတ်", "အသုံးစရိတ် အမျိုးအစားကို အောင်မြင်စွာပြုပြင် ပြီးပါပြီ။");
 
+                                ini();
+
+                            }
 
                         }
 

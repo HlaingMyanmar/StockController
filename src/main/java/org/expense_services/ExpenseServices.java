@@ -1,5 +1,6 @@
 package org.expense_services;
 
+import org.Alerts.AlertBox;
 import org.expense_options.Exp_Typesdb;
 import org.expense_options.Exp_View;
 import org.expense_options.Exp_Viewdb;
@@ -41,6 +42,39 @@ public class ExpenseServices {
 
     }
 
+    @Transactional
+    public boolean useExpenseDelete(String exviewid, Payment payment) {
+        try {
+
+            if (expViewdb.getDeleteById(exviewid) != 1) {
+                throw new RuntimeException("Expense delete failed");
+            }
+
+
+            if (paymentdb.sumAmount(new Payment(payment.getPayid(), payment.getTotal())) != 1) {
+                throw new RuntimeException("Payment update failed");
+            }
+
+            return true;
+
+        } catch (Exception e) {
+
+
+
+            AlertBox.showError("အသုံးစရိတ်","ဆားဗစ်အမှား"+exviewid);
+
+
+            throw e;
+        }
+    }
+
 
 
 }
+
+
+
+
+
+
+
