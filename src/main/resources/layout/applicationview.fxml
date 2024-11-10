@@ -57,6 +57,12 @@
                   <MenuItem fx:id="dailyexpe_btn" mnemonicParsing="false" text="နေ့စဉ်အသုံးစရိတ်" />
                </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="ဝင်ငွေ">
+               <items>
+                  <MenuItem fx:id="incometypes" mnemonicParsing="false" text="ဝင်ငွေ အမျိုးအစားများ" />
+                  <MenuItem fx:id="dailyincome" mnemonicParsing="false" text="နေ့စဉ်ဝင်ငွေ" />
+               </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />

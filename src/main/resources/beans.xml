@@ -18,6 +18,7 @@
     <context:component-scan base-package="org.saleorderoptions"/>
     <context:component-scan base-package="org.stockServices"/>
     <context:component-scan base-package="org.expense_options"/>
+    <context:component-scan base-package="org.incomeoptions"/>
 
 
 

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="447.0" prefWidth="1150.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.incomeoptions.IncomeTypesController">
+   <children>
+      <TableView fx:id="incometypetable" layoutX="5.0" layoutY="8.0" prefHeight="430.0" prefWidth="750.0" stylesheets="@../css/table.css">
+        <columns>
+          <TableColumn fx:id="codeCol" prefWidth="173.0" text="ဝင်ငွေ ကုဒ်" />
+          <TableColumn fx:id="nameCol" prefWidth="177.0" text="ဝင်ငွေ ပုံစံ" />
+            <TableColumn fx:id="descCol" prefWidth="397.0" text="အချက်အလက်" />
+        </columns>
+      </TableView>
+      <AnchorPane layoutX="772.0" layoutY="14.0" prefHeight="406.0" prefWidth="355.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #76FF03;">
+         <effect>
+            <DropShadow />
+         </effect>
+         <children>
+            <TextField fx:id="desctxt" layoutX="14.0" layoutY="23.0" prefHeight="42.0" prefWidth="319.0" promptText="ဝင်ငွေ ပုံစံ ............">
+               <font>
+                  <Font name="Pyidaungsu" size="12.0" />
+               </font>
+            </TextField>
+            <TextArea fx:id="remarktxt" layoutX="14.0" layoutY="81.0" prefHeight="265.0" prefWidth="319.0" promptText="အချက်အလက် ......................." style="-fx-background-radius: 5; -fx-border-radius: 5;">
+               <font>
+                  <Font name="Pyidaungsu" size="12.0" />
+               </font>
+            </TextArea>
+            <Button fx:id="savebtn" layoutX="14.0" layoutY="357.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="319.0" style="-fx-background-color: #2962FF; -fx-background-radius: 20; -fx-text-fill: #FFFFFF;" text="သတ်မှတ်မည်။">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

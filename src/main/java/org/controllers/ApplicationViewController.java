@@ -56,6 +56,13 @@ public class ApplicationViewController implements Initializable {
     private MenuItem dailyexpe_btn;
 
 
+    @FXML
+    private MenuItem incometypes;
+
+    @FXML
+    private MenuItem dailyincome;
+
+
 
     @FXML
     private AnchorPane switchPane;
@@ -111,6 +118,29 @@ public class ApplicationViewController implements Initializable {
             stage.initModality(Modality.WINDOW_MODAL);
             Stage mainStage = (Stage) switchPane.getScene().getWindow();
             stage.setTitle("Category");
+            stage.initOwner(mainStage);
+            stage.setScene(scene);
+            stage.show();
+
+        });
+
+        incometypes.setOnAction(event -> {
+
+            Stage stage = new Stage();
+
+
+
+            FXMLLoader fxmlLoader = new FXMLLoader(ApplicationViewController.class.getResource("/layout/income_types.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            stage.initStyle(StageStyle.UTILITY);
+            stage.initModality(Modality.WINDOW_MODAL);
+            Stage mainStage = (Stage) switchPane.getScene().getWindow();
+            stage.setTitle("ဝင်ငွေ အမျိုးအစားများ");
             stage.initOwner(mainStage);
             stage.setScene(scene);
             stage.show();
