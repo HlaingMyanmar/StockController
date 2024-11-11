@@ -25,6 +25,10 @@ public class Exp_View {
         this.paymentid = paymentid;
     }
 
+
+
+
+
     public Exp_View(String expense_id, Date expense_date, int category_id, String category_name, int total, String description, Timestamp created_at, Timestamp updated_at, int paymentid) {
         this.expense_id = expense_id;
         this.expense_date = expense_date;

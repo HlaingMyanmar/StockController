@@ -647,6 +647,7 @@ public class Exp_ViewController implements Initializable {
 
 
                 int value = event.getNewValue();
+                int oldvalue = event.getOldValue();
                 Exp_View expView = event.getRowValue();
                 
 
@@ -665,7 +666,7 @@ public class Exp_ViewController implements Initializable {
 
                     );
 
-                    if(expViewdb.update(updateView)==1){
+                    if(new ExpenseServices().useIncomeUpdateAmount(updateView, oldvalue)){
 
                         AlertBox.showInformation("အသုံးစရိတ်","အသုံးစရိတ် ပမဏ ကို အောင်မြင်စွာပြုပြင် ပြီးပါပြီ။");
 

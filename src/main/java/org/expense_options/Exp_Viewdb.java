@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -102,6 +103,22 @@ public class Exp_Viewdb implements DataAccessObject<Exp_View> {
         String sql = """
                 
                 UPDATE `expense` SET `category_id`=:category_id,`amount`=:total,`description`=:description,`updated_at`=:updated_at,`payid`=:paymentid WHERE `expense_id`=:expense_id
+                
+                
+                """;
+
+        BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(expView);
+
+        return jdbc.update(sql,param);
+    }
+
+    @Transactional
+    public int updateAmount(Exp_View expView) {
+
+
+        String sql = """
+                
+                UPDATE `expense` SET `amount`=:total,`updated_at`=:updated_at WHERE `expense_id`=:expense_id
                 
                 
                 """;

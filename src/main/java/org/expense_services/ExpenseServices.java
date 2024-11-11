@@ -4,6 +4,7 @@ import org.Alerts.AlertBox;
 import org.expense_options.Exp_Typesdb;
 import org.expense_options.Exp_View;
 import org.expense_options.Exp_Viewdb;
+import org.incomeoptions.Income_View;
 import org.paymentoptions.Payment;
 import org.paymentoptions.Paymentdb;
 import org.springframework.context.ApplicationContext;
@@ -41,6 +42,44 @@ public class ExpenseServices {
         return bo;
 
     }
+    @Transactional
+    public boolean useIncomeUpdateAmount(Exp_View expView, int oldAmount) {
+
+        boolean bo = false;
+
+
+
+        if(expViewdb.updateAmount(expView)==1){
+
+
+
+
+            if(paymentdb.subAmount(new Payment(expView.getPaymentid(),oldAmount))==1){
+
+
+                paymentdb.sumAmount(new Payment(expView.getPaymentid(),expView.getTotal()));
+
+                bo =true;
+
+
+            }
+            else {
+
+                System.out.println("Something Worong");
+            }
+
+
+
+        }
+
+
+
+
+
+        return bo;
+
+    }
+
 
     @Transactional
     public boolean useExpenseDelete(String exviewid, Payment payment) {
