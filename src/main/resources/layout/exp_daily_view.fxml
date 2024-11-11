@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="654.0" prefWidth="1285.0" style="-fx-background-color: #F1CE33;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.expense_options.Exp_ViewController">
+<AnchorPane prefHeight="654.0" prefWidth="1285.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.expense_options.Exp_ViewController">
    <children>
       <TableView fx:id="expensetable" layoutX="20.0" layoutY="279.0" prefHeight="357.0" prefWidth="1236.0" stylesheets="@../css/exp_tablecss.css">
         <columns>

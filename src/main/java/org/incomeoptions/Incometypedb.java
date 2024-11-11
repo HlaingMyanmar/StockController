@@ -102,6 +102,7 @@ public class Incometypedb implements DataAccessObject<Incometype> {
             incometype.setCat_name(rs.getString("cat_name"));
             incometype.setDescription(rs.getString("description"));
 
+
             return incometype;
 
 

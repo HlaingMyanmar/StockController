@@ -242,6 +242,29 @@ public class ApplicationViewController implements Initializable {
 
         });
 
+        dailyincome.setOnAction(event -> {
+
+            FXMLLoader fxmlLoader2 = new FXMLLoader(ApplicationViewController.class.getResource("/layout/income_daily_view.fxml"));
+            Node node = null;
+
+            try {
+
+                node = fxmlLoader2.load();
+                switchPane.getChildren().clear();
+                switchPane.getChildren().add(node);
+
+
+
+            } catch (IOException e) {
+
+                throw new RuntimeException(e);
+            }
+
+
+
+
+        });
+
         orderListbtn.setOnAction(event -> {
 
             FXMLLoader fxmlLoader2 = new FXMLLoader(ApplicationViewController.class.getResource("/layout/saledashboardview.fxml"));
