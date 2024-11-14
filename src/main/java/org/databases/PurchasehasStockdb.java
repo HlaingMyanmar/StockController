@@ -42,18 +42,26 @@ public class PurchasehasStockdb implements DataAccessObject<PurchasehasStock> {
 
     public List<PurchaseList>  getPurchaseDashboardList(){
 
+
         String sql = """
+                SELECT
+                    p.puid,
+                    p.pudate,
+                    s.suname,
+                    SUM(phs.qty * phs.org_price) AS total
+                FROM `purchase` p
+                INNER JOIN  purchase_has_stock phs ON phs.puid = p.puid
+                INNER JOIN supplier s ON s.sid = phs.sid
+                GROUP BY  p.puid, p.pudate, s.suname
+                ORDER BY CAST(SUBSTRING(p.puid, 3, 8) AS UNSIGNED) DESC,
+                CAST(SUBSTRING_INDEX(p.puid, '-', -1) AS UNSIGNED) ASC;
                 
-            SELECT p.puid, p.pudate, s.suname,
-            SUM(phs.qty * phs.org_price) AS total
-            FROM `purchase` p
-            INNER JOIN purchase_has_stock phs ON phs.puid = p.puid
-            INNER JOIN supplier s ON s.sid = phs.sid
-            GROUP BY p.puid, p.pudate, s.suname
-            ORDER BY p.puid DESC;
                 
                 
                 """;
+
+
+
 
         return jdbc.query(sql, (rs, event) ->getPuchaseList(rs));
 

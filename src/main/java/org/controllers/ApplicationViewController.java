@@ -117,6 +117,9 @@ public class ApplicationViewController  implements Initializable {
     @FXML
     private Label incometotal;
 
+    @FXML
+    private Label nettotal;
+
 
 
 
@@ -369,7 +372,9 @@ public class ApplicationViewController  implements Initializable {
 
         // Create a series for net profit (Income + Orders - Expenses - Purchases)
         XYChart.Series<String, Number> netProfitSeries = new XYChart.Series<>();
-        netProfitSeries.setName("Net Profit");
+        netProfitSeries.setName("လက်ကျန်ရှိငွေ");
+
+
 
         // Populate the series for each month
         for (int i = 1; i <= 12; i++) {
@@ -379,12 +384,21 @@ public class ApplicationViewController  implements Initializable {
             double expense = monthlyExpenseTotals.getOrDefault(i, 0.0);
             double purchase = monthlyPurchaseTotals.getOrDefault(i, 0.0);
 
-            // Net profit calculation: (Income + Orders) - (Expenses + Purchases)
+
             double netProfit = (income + order) - (expense + purchase);
 
-            // Add the net profit data for the month
+            if(!(netProfit==0.0)){
+
+
+                nettotal.setText(convertToMyanmarCurrency(netProfit));
+
+            }
+
+
             netProfitSeries.getData().add(new XYChart.Data<>(String.valueOf(i), netProfit));
-            System.out.println("Month " + i + " - Net Profit: " + netProfit);
+
+
+
         }
 
         // Add the series to the chart

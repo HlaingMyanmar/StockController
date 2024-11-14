@@ -29,6 +29,8 @@ import org.datalistgenerator.SupplierGenerate;
 import org.models.Purchase;
 import org.models.PurchasehasStock;
 import org.models.Stock;
+import org.paymentoptions.Payment;
+import org.paymentoptions.Paymentdb;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -158,6 +160,8 @@ public class NewPurchaseViewController extends Deliver  implements Initializable
     Purchasedb purchasedb = context.getBean("purchasedb",Purchasedb.class);
 
     ObservableList<Stock> __predataList = FXCollections.observableArrayList();
+
+    Paymentdb paymentdb  = context.getBean("paymentdb",Paymentdb.class);
 
     PurchasehasStockdb purchasehasStockdb = context.getBean("purchasehastockdb",PurchasehasStockdb.class);
 
@@ -330,6 +334,8 @@ public class NewPurchaseViewController extends Deliver  implements Initializable
 
                 if(purchasedb.insert(new Purchase(code, text))==1){
 
+
+
                     List<PurchasehasStock> purchasehasStockList = new ArrayList<>();
 
                     for (Stock stock : __predataList) {
@@ -340,12 +346,17 @@ public class NewPurchaseViewController extends Deliver  implements Initializable
                     }
 
 
+
+
+
                     int check=1;
                     int [] result=purchasehasStockdb.insertBatch(purchasehasStockList);
 
                     for(int i :result){
 
                        if(i!=1 ){
+
+
 
 
 
@@ -359,8 +370,9 @@ public class NewPurchaseViewController extends Deliver  implements Initializable
                     }
 
 
-                    if( check==1 ){
+                    int sum = __predataList.stream().mapToInt(Stock::getTotal).sum();
 
+                    if( check==1 &&paymentdb.subAmount(new Payment(3,sum)) ==1){
 
                         AlertBox.showInformation("Successful","New Purchase Successfull Insert!!!");
 

@@ -186,6 +186,13 @@ public class PurchaseDashboardViewController extends Deliver implements Initiali
             stage.setScene(scene);
             stage.show();
 
+
+            stage.setOnCloseRequest(event1 -> {
+
+                ini();
+
+            });
+
         });
 
 

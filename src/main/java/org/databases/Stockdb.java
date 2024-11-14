@@ -40,9 +40,33 @@ public class Stockdb implements DataAccessObject<Stock> {
 //
 //            """;
 
-        String sql = "SELECT s.stockcode,s.stockname, c.cname, b.bname, s.qty,s.price,(s.qty*s.price) as total FROM `stock` s\n" +
-                "INNER JOIN category c ON c.cid = s.cid\n" +
-                "INNER JOIN brand b ON b.bid = s.bid order by s.stockcode desc";
+        String sql = """
+
+                SELECT
+    s.stockcode,
+    s.stockname,
+    c.cname,
+    b.bname,
+    s.qty,
+    s.price,
+    (s.qty * s.price) AS total
+FROM
+    `stock` s
+INNER JOIN
+    category c ON c.cid = s.cid
+INNER JOIN
+    brand b ON b.bid = s.bid
+ORDER BY
+    CAST(SUBSTRING(s.stockcode, 3, 8) AS UNSIGNED) DESC,
+    CAST(SUBSTRING_INDEX(s.stockcode, '-', -1) AS UNSIGNED) DESC;
+
+
+
+
+
+
+
+""";
 
         return jdbc.query(sql, (rs, rowNum) -> getStock(rs));
 

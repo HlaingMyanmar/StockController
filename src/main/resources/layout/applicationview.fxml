@@ -75,7 +75,7 @@
          <children>
             <Spinner fx:id="monthPicker" editable="true" layoutX="14.0" layoutY="13.0" prefHeight="37.0" prefWidth="123.0" />
             <Spinner fx:id="yearPicker" editable="true" layoutX="161.0" layoutY="13.0" prefHeight="37.0" prefWidth="123.0" />
-            <LineChart fx:id="lineChart" layoutX="569.0" layoutY="13.0" prefHeight="623.0" prefWidth="717.0">
+            <LineChart fx:id="lineChart" layoutX="569.0" layoutY="13.0" prefHeight="583.0" prefWidth="717.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -91,6 +91,11 @@
                </font>
             </Label>
             <Label fx:id="incometotal" layoutX="14.0" layoutY="314.0" prefHeight="30.0" prefWidth="547.0" style="-fx-alignment: center;" text="Label">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="nettotal" layoutX="613.0" layoutY="589.0" prefHeight="30.0" prefWidth="659.0" style="-fx-alignment: center;" text="Label">
                <font>
                   <Font name="Pyidaungsu Bold" size="12.0" />
                </font>
